@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import "../css/style.css";
 import queryString from 'query-string';
-import {SpotifyApiContext, Search} from "react-spotify-api";
-import {Helmet} from "react-helmet";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchUserData} from "../actions/index.js";
+import {fetchUserData,fetchNewAlbums} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
 import SearchBar from "../components/SearchBar";
+import MusicCard from "../components/MusicCard";
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -15,6 +15,7 @@ class App extends Component {
       serverData: null
     };
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleCl = this.handleCl.bind(this);
   }
   componentDidMount(){
     let parsed = queryString.parse(window.location.search);
@@ -25,7 +26,9 @@ class App extends Component {
     this.setState({
       accessToken:accessToken
     })
+
     this.props.fetchUserData(accessToken);
+
     // fetch('https://api.spotify.com/v1/me/playlists', {
     //   headers: {'Authorization': 'Bearer ' + accessToken}
     // }).then(response => response.json())
@@ -40,6 +43,11 @@ class App extends Component {
     // })
     // }))
   }
+  handleCl(e){
+    e.preventDefault();
+    this.props.fetchNewAlbums(this.state.accessToken);
+    console.log(this.props.album);
+  }
   handleSignIn(e){
     e.preventDefault();
     window.location=window.location.href.includes('localhost') ? 'http://localhost:8888/login':'https://find-your-music-spotify.herokuapp.com/login'
@@ -49,10 +57,13 @@ class App extends Component {
         <div className="app">
           {this.props.userData ?
           <div>
-            <h1 style={{'font-size': '40px', 'margin-top':'1%'}}>
+            <h1 style={{'fontSize': '40px', 'marginTop':'1%'}}>
               Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
             <SearchBar/>
+            <h2 onClick={this.handleCl}>Show</h2>
+            <MusicCard newAlbums={this.props.fetchNewAlbums} />
+
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
         </div>
@@ -61,17 +72,18 @@ class App extends Component {
 }
 App.propTypes={
   fetchUserData:PropTypes.func.isRequired,
-  userData:PropTypes.object
+  fetchNewAlbums:PropTypes.func.isRequired,
+  userData:PropTypes.object,
+  album:PropTypes.object
 }
-const mapStateToProps= state =>{
+const mapStateToProps = (state) =>{
   return{
-    userData: state.userData.data
+    userData: state.userData.data,
+    album: state.newAlbum.albums
   };
 };
-export default connect(mapStateToProps, {fetchUserData})(App);
-{/* <button onClick={() => {
-              window.location = window.location.href.includes('localhost') 
-                ? 'http://localhost:8888/login' 
-                : 'https://better-playlists-backend.herokuapp.com/login' }
-            }
-            style={{padding: '20px', 'font-size': '50px', 'margin-top': '20px'}}>Sign in with Spotify</button> */}
+const mapDispatchToProps = {
+  fetchUserData,
+  fetchNewAlbums
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

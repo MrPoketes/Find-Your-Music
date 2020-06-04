@@ -8,7 +8,7 @@ export default class SearchBar extends Component{
                 <InputGroup className="mb-3 search">
                     <FormControl placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"/>
                     <InputGroup.Append>
-                        <Button variant="success"><i class="fas fa-search"></i></Button>
+                        <Button variant="success"><i className="fas fa-search"></i></Button>
                     </InputGroup.Append>
                 </InputGroup>
             </div>
