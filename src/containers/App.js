@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import "./css/style.css";
+import "../css/style.css";
 import queryString from 'query-string';
-import {SpotifyApiContext} from "react-spotify-api";
+import {SpotifyApiContext, Search} from "react-spotify-api";
 import {Helmet} from "react-helmet";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchUserData} from "./actions/index.js";
-import SignInButton from "./components/SignInButton";
+import {fetchUserData} from "../actions/index.js";
+import SignInButton from "../components/SignInButton";
+import SearchBar from "../components/SearchBar";
 class App extends Component {
   constructor(props){
     super(props);
@@ -48,9 +49,10 @@ class App extends Component {
         <div className="app">
           {this.props.userData ?
           <div>
-            <h1 style={{'font-size': '54px'}}>
-              {this.props.userData.display_name}'s Playlists
+            <h1 style={{'font-size': '40px', 'margin-top':'1%'}}>
+              Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
+            <SearchBar/>
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
         </div>
