@@ -6,8 +6,7 @@ import PropTypes from "prop-types";
 import {fetchUserData,fetchNewAlbums} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
 import SearchBar from "../components/SearchBar";
-import MusicCard from "../components/MusicCard";
-
+import MusicCards from "../components/Cards/MusicCards";
 class App extends Component {
   constructor(props){
     super(props);
@@ -28,7 +27,7 @@ class App extends Component {
     })
 
     this.props.fetchUserData(accessToken);
-
+    this.props.fetchNewAlbums(accessToken);
     // fetch('https://api.spotify.com/v1/me/playlists', {
     //   headers: {'Authorization': 'Bearer ' + accessToken}
     // }).then(response => response.json())
@@ -43,14 +42,13 @@ class App extends Component {
     // })
     // }))
   }
-  handleCl(e){
-    e.preventDefault();
-    this.props.fetchNewAlbums(this.state.accessToken);
-    console.log(this.props.album);
-  }
   handleSignIn(e){
     e.preventDefault();
     window.location=window.location.href.includes('localhost') ? 'http://localhost:8888/login':'https://find-your-music-spotify.herokuapp.com/login'
+  }
+  handleCl(e){
+    e.preventDefault();
+    // console.log(this.props.newAlbums.albums.items)
   }
   render(){
       return (
@@ -62,7 +60,8 @@ class App extends Component {
             </h1>
             <SearchBar/>
             <h2 onClick={this.handleCl}>Show</h2>
-            <MusicCard newAlbums={this.props.fetchNewAlbums} />
+            <MusicCards newAlbums={this.state.newAlbums}/>
+            {/* <CardTemplate newAlbums={this.state.newAlbums}/> */}
 
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
@@ -74,12 +73,12 @@ App.propTypes={
   fetchUserData:PropTypes.func.isRequired,
   fetchNewAlbums:PropTypes.func.isRequired,
   userData:PropTypes.object,
-  album:PropTypes.object
+  albums:PropTypes.object
 }
 const mapStateToProps = (state) =>{
   return{
     userData: state.userData.data,
-    album: state.newAlbum.albums
+    newAlbums: state.newAlbum.albums
   };
 };
 const mapDispatchToProps = {
