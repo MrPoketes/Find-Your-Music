@@ -26,6 +26,33 @@ export const fetchTopTracks = (spotify) => (dispatch) =>{
         }
     })
 }
+export const fetchNewAlbums = (spotify) => (dispatch) =>{
+    spotify.getNewReleases({limit:12},function(err,albums){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"FETCH_NEW_RELEASES",
+                payload:albums.albums.items
+            })
+        }
+    })
+}
+
+export const search = (spotify,input) => (dispatch) =>{
+    spotify.search(input,['album','playlist','track','artist'],function(err,searchData){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"SEARCH",
+                payload:searchData
+            })
+        }
+    })
+}
 
 
 
