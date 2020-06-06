@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import "../css/style.css";
+import {Button} from "react-bootstrap";
 import queryString from 'query-string';
+import * as SpotifyWebApi from "spotify-web-api-js";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchUserData,fetchNewAlbums} from "../actions/index.js";
+import {fetchUserData,fetchTopTracks} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
 import SearchBar from "../components/SearchBar";
 import MusicCards from "../components/Cards/MusicCards";
+var spotifyApi = new SpotifyWebApi();
+
+let accessToken="";
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      serverData: null
+      isShowAlbumsClicked:false
     };
     this.handleSignIn = this.handleSignIn.bind(this);
-    this.handleCl = this.handleCl.bind(this);
+    this.handleShowAlbumsClick = this.handleShowAlbumsClick.bind(this);
   }
   componentDidMount(){
     let parsed = queryString.parse(window.location.search);
@@ -25,9 +30,10 @@ class App extends Component {
     this.setState({
       accessToken:accessToken
     })
+    spotifyApi.setAccessToken(accessToken);
+    this.props.fetchUserData(spotifyApi);
+    this.props.fetchTopTracks(spotifyApi);
 
-    this.props.fetchUserData(accessToken);
-    this.props.fetchNewAlbums(accessToken);
     // fetch('https://api.spotify.com/v1/me/playlists', {
     //   headers: {'Authorization': 'Bearer ' + accessToken}
     // }).then(response => response.json())
@@ -46,9 +52,12 @@ class App extends Component {
     e.preventDefault();
     window.location=window.location.href.includes('localhost') ? 'http://localhost:8888/login':'https://find-your-music-spotify.herokuapp.com/login'
   }
-  handleCl(e){
+  handleShowAlbumsClick(e){
     e.preventDefault();
-    // console.log(this.props.newAlbums.albums.items)
+    console.log(this.props.topTracks);
+    this.setState({
+      isShowAlbumsClicked:!this.state.isShowAlbumsClicked
+    })
   }
   render(){
       return (
@@ -59,10 +68,12 @@ class App extends Component {
               Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
             <SearchBar/>
-            <h2 onClick={this.handleCl}>Show</h2>
-            <MusicCards newAlbums={this.state.newAlbums}/>
-            {/* <CardTemplate newAlbums={this.state.newAlbums}/> */}
-
+          <Button variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
+            {this.state.isShowAlbumsClicked ?
+              <div>
+              <MusicCards top={this.props.topTracks}/>
+              </div>:<div></div>
+            }
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
         </div>
@@ -71,18 +82,19 @@ class App extends Component {
 }
 App.propTypes={
   fetchUserData:PropTypes.func.isRequired,
-  fetchNewAlbums:PropTypes.func.isRequired,
+  fetchTopTracks:PropTypes.func.isRequired,
   userData:PropTypes.object,
-  albums:PropTypes.object
+  topTracks:PropTypes.object,
 }
+
 const mapStateToProps = (state) =>{
   return{
     userData: state.userData.data,
-    newAlbums: state.newAlbum.albums
+    topTracks: state.topTracks.tracks
   };
 };
 const mapDispatchToProps = {
-  fetchUserData,
-  fetchNewAlbums
+    fetchUserData,
+    fetchTopTracks
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

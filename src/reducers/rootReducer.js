@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 import userDataReducer from "./userDataReducer";
-import newAlbumReducer from "./newAlbumsReducer";
-
+import topTracksReducer from "./topTracksReducer";
 export default combineReducers({
     userData:userDataReducer,
-    newAlbum:newAlbumReducer
+    topTracks:topTracksReducer
 });
