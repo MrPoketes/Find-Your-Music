@@ -8,6 +8,6 @@ const initialState = {};
 const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(logger,thunk)
+    applyMiddleware(thunk)
 );
 export default store;
