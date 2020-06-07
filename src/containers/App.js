@@ -13,7 +13,6 @@ import MusicCards from "../components/Cards/MusicCards";
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 let accessToken="";
-let input="";
 
 class App extends Component {
   constructor(props){
@@ -94,7 +93,10 @@ class App extends Component {
             </h1>
 
             <SearchBar search={this.handleSearch}/>
-
+            {this.props.results ?
+            <div>
+              <h2>Found</h2>
+            </div> :<div>
             <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
             <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleNewReleasesClick}>{this.state.isShowNewClicked? "Hide New Releases":"Show New Releases"}</Button>
 
@@ -108,7 +110,8 @@ class App extends Component {
                 <MusicCards top={this.props.newAlbums}/>
             </div>:<div></div>
           }
-
+            </div>
+          }
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
         </div>
