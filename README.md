@@ -2,6 +2,8 @@
 
 <h2>About</h2>
 <p>Find Your Music is a website where you can quickly find your desired music by quickly searching for it. You can also discover what your top viewed songs on spotify are and even browse through new releases songs</p>
+
+
 <a href="https://find-your-music.herokuapp.com"><h2>Demo</h2></a>
 
 <h2>Todo List:</h2>
