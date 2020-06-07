@@ -7,12 +7,14 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {fetchUserData,fetchTopTracks,fetchNewAlbums,search} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchComponents/SearchBar";
 import MusicCards from "../components/Cards/MusicCards";
-
+import SearchContainer from "../components/SearchComponents/SearchContainer";
+import Navigation from "../components/Navigation";
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 let accessToken="";
+let input = "";
 
 class App extends Component {
   constructor(props){
@@ -25,7 +27,7 @@ class App extends Component {
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleShowAlbumsClick = this.handleShowAlbumsClick.bind(this);
     this.handleNewReleasesClick = this.handleNewReleasesClick.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearch= this.handleSearch.bind(this);
   }
   componentDidMount(){
     // Getting the accessToken
@@ -80,26 +82,37 @@ class App extends Component {
   }
   // Handle function for the searchbar
   handleSearch(value){
-    this.props.search(spotifyApi,value);
-    console.log(this.props.results);
+    input = value;
+    if(input!==""){
+      this.props.search(spotifyApi,input);
+    }
   }
   render(){
       return (
         <div className="app">
-          {this.props.userData ?
+          <Navigation/>
+          {/* Search results render section */}
+          {this.props.results ?
+          <div className="SearchSection">
+            <SearchBar searchPress={this.handleSearch}/>
+            <h2>Results for: {input}</h2>
+            <SearchContainer results={this.props.results}/>
+          </div>:
+          // Home section
           <div>
+          {this.props.userData ?
+          <div className="MainSection">
+
             <h1 style={{'fontSize': '40px', 'marginTop':'1%'}}>
               Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
 
-            <SearchBar search={this.handleSearch}/>
-            {this.props.results ?
-            <div>
-              <h2>Found</h2>
-            </div> :<div>
+            <SearchBar searchPress={this.handleSearch}/>
+
+            {/* Buttons for Top Tracks and New Releases */}
             <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
             <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleNewReleasesClick}>{this.state.isShowNewClicked? "Hide New Releases":"Show New Releases"}</Button>
-
+            {/* Handling clicking the buttons */}
             {this.state.isShowAlbumsClicked?
               <div>
                 <MusicCards top={this.props.topTracks}/>
@@ -110,10 +123,11 @@ class App extends Component {
                 <MusicCards top={this.props.newAlbums}/>
             </div>:<div></div>
           }
-            </div>
-          }
+          {/* Authentication part */}
           </div> : <SignInButton handleSignIn={this.handleSignIn}/>
           }
+          </div>
+        }
         </div>
       );
   }

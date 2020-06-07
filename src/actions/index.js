@@ -41,7 +41,7 @@ export const fetchNewAlbums = (spotify) => (dispatch) =>{
 }
 
 export const search = (spotify,input) => (dispatch) =>{
-    spotify.search(input,['album','playlist','track','artist'],function(err,searchData){
+    spotify.search(input,['album','playlist','track','artist'],{limit:4},function(err,searchData){
         if(err){
             console.log(err);
         }

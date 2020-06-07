@@ -9,7 +9,7 @@ const CardTemplate = (props)=>{
                 <Card.Img variant="top" src={props.image}/>
                 <Card.ImgOverlay>
                 <Card.Body className="card-text">
-                    <i className="fas fa-play"></i>
+                    <i className="fas fa-play cardPlay"></i>
                 </Card.Body>
                 </Card.ImgOverlay>
   
