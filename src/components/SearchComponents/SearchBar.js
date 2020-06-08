@@ -14,7 +14,7 @@ export default class SearchBar extends Component{
     render(){
         return(
             <div className="center search-div">
-                <h2>Search for music</h2>
+                <h1 style={{'fontSize': '40px'}}>Search for music</h1>
                 <InputGroup className="mb-3 search" >
                     <FormControl ref="input" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2"/>
                     <InputGroup.Append>

@@ -41,3 +41,10 @@
 .SearchContainer{
   margin-top:1%;
 }
+.form{
+  width:100% !important;
+}
+.formCenter{
+  margin-right: 30%;
+  margin-left:30%;
+}

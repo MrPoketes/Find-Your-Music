@@ -8,7 +8,8 @@ import "./css/style.css";
 import queryString from 'query-string';
 import SignInButton from "./components/SignInButton";
 import Home from './containers/Home';
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import PlaylistCreate from './components/Playlists/PlaylistCreate';
 
 //Global variables
 let accessToken="";
