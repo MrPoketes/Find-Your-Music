@@ -3,9 +3,6 @@ import "../../css/style.css";
 import SearchItemTemplate from "./SearchItemTemplate";
 
 export default class SearchContainer extends Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         return(
             <div className="SearchContainer">

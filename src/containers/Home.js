@@ -10,7 +10,7 @@ import MusicCards from "../components/Cards/MusicCards";
 
 // Global variables
 var spotifyApi = new SpotifyWebApi();
-let accessToken="";
+// let accessToken="";
 
 class Home extends Component {
   constructor(props){

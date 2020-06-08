@@ -1,5 +1,5 @@
 import React from "react";
-import {Figure,FigureImage,FigureCaption,Card} from "react-bootstrap";
+import {Figure} from "react-bootstrap";
 import "../../css/style.css";
 
 const SearchItemTemplate = (props)=>{
