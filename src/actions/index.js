@@ -53,6 +53,45 @@ export const search = (spotify,input) => (dispatch) =>{
         }
     })
 }
+export const createNewPlaylist = (spotify,user_id,name,description) => (dispatch) =>{
+    spotify.createPlaylist(user_id,{name:name,description:description},function(err,playlist){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"CREATE_NEW_PLAYLIST",
+                payload:playlist
+            })
+        }
+    })
+}
+export const addTrackToPlaylist = (spotify,uri,playlistId) => (dispatch) =>{
+    spotify.addTracksToPlaylist(playlistId,[uri],function(err,add){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"ADD_TRACK_TO_PLAYLIST",
+                payload:add
+            })
+        }
+    })
+}
+export const fetchPlaylist = (spotify,playlistId) => (dispatch) =>{
+    spotify.getPlaylist(playlistId,function(err,playlist){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"FETCH_PLAYLIST",
+                payload:playlist
+            })
+        }
+    })
+}
 
 
 

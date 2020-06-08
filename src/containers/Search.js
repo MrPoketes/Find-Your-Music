@@ -5,7 +5,7 @@ import "../css/style.css";
 import {connect} from "react-redux";
 import {search} from "../actions/index.js";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 var spotifyApi = new SpotifyWebApi();
 let input="";
@@ -20,10 +20,10 @@ class Search extends Component{
         this.handleSearch = this.handleSearch.bind(this);
         spotifyApi.setAccessToken(accessToken);
     }
-    componentDidMount(){
-        let parsed = queryString.parse(window.location.search);
-        accessToken = parsed.access_token;
-    }
+    // componentDidMount(){
+    //     let parsed = queryString.parse(window.location.search);
+    //     accessToken = parsed.access_token;
+    // }
     handleSearch(value){   
         input = value;
         if(input!==""){

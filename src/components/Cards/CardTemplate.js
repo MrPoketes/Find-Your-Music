@@ -12,7 +12,6 @@ const CardTemplate = (props)=>{
                     <i className="fas fa-play cardPlay"></i>
                 </Card.Body>
                 </Card.ImgOverlay>
-  
             </a>
         </Card>
         )

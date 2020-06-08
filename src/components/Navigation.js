@@ -2,9 +2,8 @@ import React,{Component} from "react";
 import {Navbar,Nav,NavDropdown} from "react-bootstrap";
 import {BrowserRouter as Router,Switch,Route,NavLink} from "react-router-dom";
 import App from "../index.js";
-import PlaylistContainer from "../containers/PlaylistContainer";
 import Search from "../containers/Search";
-import PlaylistCreate from "./Playlists/PlaylistCreate.js";
+import PlaylistCreate from "../containers/PlaylistCreate";
 import { LinkContainer } from "react-router-bootstrap";
 
 var accessToken="";

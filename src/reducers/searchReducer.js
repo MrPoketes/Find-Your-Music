@@ -60,7 +60,8 @@ function assigning(items,type){
                     artists:itemArtists,
                     url:itemObj.external_urls.spotify,
                     images:itemObj.album.images[0].url,
-                    title:itemObj.name
+                    title:itemObj.name,
+                    uri:itemObj.uri
                 })
             }
             newItems.push(newObj);

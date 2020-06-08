@@ -10,14 +10,14 @@ export default class SearchContainer extends Component{
                     <div className="line"></div>
                     <h2>Top Artist</h2>
                     <div className="line"></div>
-                    <SearchItemTemplate image={this.props.results.artists[0].images} name={""} title={this.props.results.artists[0].name} url={this.props.results.artists[0].url}/>
+                    <SearchItemTemplate size="19rem" image={this.props.results.artists[0].images} name={""} title={this.props.results.artists[0].name} url={this.props.results.artists[0].url}/>
                 </div>
                 <div className="line"></div>
                 <div className="tracks">
                     <h2>Tracks</h2>
                     <div className="line"></div>
                     {this.props.results.tracks.map((track,i)=>
-                    <SearchItemTemplate key={i} image={track.images} name={track.title} title={track.artists} url={track.url}/>
+                    <SearchItemTemplate key={i} size="19rem" image={track.images} name={track.title} title={track.artists} url={track.url}/>
                     )}
                 </div>
                 <div className="line"></div>
@@ -25,7 +25,7 @@ export default class SearchContainer extends Component{
                     <h2>Albums</h2>
                     <div className="line"></div>
                     {this.props.results.albums.map((album,i)=>
-                    <SearchItemTemplate key={i} image={album.images} name={album.name} title={album.artists} url={album.url}/>
+                    <SearchItemTemplate key={i} size="19rem" image={album.images} name={album.name} title={album.artists} url={album.url}/>
                     )}
                 </div>
                 <div className="line"></div>
@@ -33,7 +33,7 @@ export default class SearchContainer extends Component{
                     <h2>Playlists</h2>
                     <div className="line"></div>
                     {this.props.results.playlists.map((playlist,i)=>
-                    <SearchItemTemplate key={i} image={playlist.images} name={playlist.title} url={playlist.url}/>
+                    <SearchItemTemplate key={i} size="19rem" image={playlist.images} name={playlist.title} url={playlist.url}/>
                     )}
                 </div>
             </div>

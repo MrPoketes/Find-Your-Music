@@ -48,3 +48,10 @@
   margin-right: 30%;
   margin-left:30%;
 }
+.playlistTemplate{
+  position: relative;
+  left:20%;
+  text-align: left;
+  /* background-color:red; */
+  width:80%;
+}
