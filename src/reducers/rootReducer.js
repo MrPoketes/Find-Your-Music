@@ -4,7 +4,7 @@ import topTracksReducer from "./topTracksReducer";
 import newAlbumsReducer from "./newAlbumsReducer";
 import searchReducer from "./searchReducer";
 import createPlaylistReducer from "./createPlaylistReducer";
-import addedTracksReducer from "./addedTracksReducer";
+import modifyTracksReducer from "./modifyTracksReducer";
 
 export default combineReducers({
     userData:userDataReducer,
@@ -12,5 +12,5 @@ export default combineReducers({
     newReleases:newAlbumsReducer,
     searchResults:searchReducer,
     created:createPlaylistReducer,
-    addedTracks:addedTracksReducer
+    modifiedTracks:modifyTracksReducer
 });

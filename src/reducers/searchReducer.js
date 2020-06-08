@@ -61,7 +61,8 @@ function assigning(items,type){
                     url:itemObj.external_urls.spotify,
                     images:itemObj.album.images[0].url,
                     title:itemObj.name,
-                    uri:itemObj.uri
+                    uri:itemObj.uri,
+                    linked_from:itemObj
                 })
             }
             newItems.push(newObj);

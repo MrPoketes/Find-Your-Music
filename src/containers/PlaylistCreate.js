@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {fetchUserData,createNewPlaylist,search,addTrackToPlaylist,fetchPlaylist} from "../actions/index.js";
+import {fetchUserData,createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist} from "../actions/index.js";
 import {connect} from "react-redux";
 import {Container,Row,Col} from "react-bootstrap";
 import SearchBar from "../components/SearchComponents/SearchBar";
@@ -10,6 +10,7 @@ import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplat
 import PlaylistForm from "../components/Playlists/PlaylistForm";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 
+// Global variables
 var spotifyApi = new SpotifyWebApi();
 let input = "";
 var accessToken = "";
@@ -24,6 +25,7 @@ class PlaylistCreate extends Component{
         }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
+        // Handler functions
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -32,41 +34,72 @@ class PlaylistCreate extends Component{
     componentDidMount(){
         this.props.fetchUserData(spotifyApi);
     }
+    // Form Submit
     handleFormSubmit(name,description){
         this.props.createNewPlaylist(spotifyApi,this.props.user.id,name,description)
     }
+    // SearchBar function
     handleSearch(value){   
         input = value;
         if(input!==""){
           this.props.search(spotifyApi,input);
         }
     }
-    handleAdd(image,name,title,uri){
-        this.props.addTrackToPlaylist(spotifyApi,uri,this.props.playlist.id);
-        this.props.fetchPlaylist(spotifyApi,this.props.playlist.id);
+    // Handling adding a track to a playlist
+    handleAdd(image,name,title,link){
+        this.props.addTrackToPlaylist(spotifyApi,link,this.props.playlist.id);
+        // Assigning the track to a variable so it can be shown
         let newObj = {};
+        let songObj = {};
         newObj = Object.assign({},newObj,{
             image:image,
             name:name,
             title:title,
-            uri:uri,
+            uri:link,
         })
         newItems.push(newObj);
-        songs = Object.assign({},songs,{
+        songs = newItems;
+        songObj = Object.assign({},songObj,{
             items:newItems
         })
+        songs = songObj
     }
-    handleRemove(key){
-        console.log(songs);
-        let items = [];
-        for(let i=0;i!==songs.items.length;i++){
-            if(key!==i){
-                items.push(songs.items[i]);
+    // Handling removing a track from a playlist
+    handleRemove(key,link){
+        // Removing the item from songs object so it can render the correct tracks
+        let songObj = {}
+        let songsItems = [];
+        for(let i=0;i!=songs.items.length;i++){
+            if(key!=i){
+                let obj = {};
+                obj = Object.assign({},obj,{
+                    image:songs.items[i].image,
+                    name:songs.items[i].name,
+                    title:songs.items[i].title,
+                    uri:songs.items[i].uri
+                })
+                songsItems.push(obj);
             }
         }
-        songs = Object.assign({},songs,{
-            items:items
+        newItems.splice(key,1);
+        songObj=Object.assign({},songObj,{
+            items:songsItems
         })
+        songs = songObj;
+        // For making the remove
+        let items = []
+        let tracks = {};
+        let obj = {};
+        obj = Object.assign({},obj,{
+            uri:link,
+            positions:[key]
+        })
+        items.push(obj)
+        tracks = Object.assign({},tracks,{
+            tracks:items
+        })
+        // Calling remove
+        this.props.removeTrackFromPlaylist(spotifyApi,this.props.playlist.id,tracks.tracks);
     }
     render(){
         return(
@@ -75,6 +108,7 @@ class PlaylistCreate extends Component{
                 <Container fluid>
                     <Row>
                         <Col>
+                        {/* Searching for tracks to add */}
                         <SearchBar searchPress={this.handleSearch}/>
                         {this.props.results ?
                         <div>
@@ -86,20 +120,22 @@ class PlaylistCreate extends Component{
                         }
                         </Col>
                         <Col>
-                            <h1>Playlist</h1>
+                        {/* Playlist showcase section */}
+                            <h1 style={{margin:"1%"}}>Playlist</h1>
                             <h2>{this.props.playlist.name}</h2>
                             <h4>{this.props.playlist.description}</h4>
                             <h4>Created by: {this.props.user.display_name}</h4>
-                            {this.props.addedTracks ?
+                            {this.props.modifiedTracks ?
                             <div>
                                 {songs.items.map((item,i)=>
-                                    <PlaylistTrackTemplate remove={this.handleRemove} key={i} pos={i} uri={item.uri} image={item.image} title={item.title} name={item.name}/>
+                                    <PlaylistTrackTemplate x={this.state.rerender} remove={this.handleRemove} key={i} pos={i} link={item.uri} image={item.image} title={item.title} name={item.name}/>
                                 )}
                             </div>:<div></div>
                         }
                         </Col>
                     </Row>
                 </Container>:
+                // The form to create a playlist
                 <div className="formCenter">
                     <PlaylistForm submitForm={this.handleFormSubmit}/>
                 </div>
@@ -114,8 +150,7 @@ const mapStateToProps = (state)=>{
         user:state.userData.data,
         playlist:state.created.newPlaylist,
         results:state.searchResults.data,
-        addedTracks:state.addedTracks.items,
-        addedPlaylist:state.created.newPlaylist
+        modifiedTracks:state.modifiedTracks.items,
     }
 }
 const mapDispatchToProps = {
@@ -123,6 +158,6 @@ const mapDispatchToProps = {
     createNewPlaylist,
     search,
     addTrackToPlaylist,
-    fetchPlaylist
+    removeTrackFromPlaylist
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistCreate);

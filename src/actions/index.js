@@ -79,20 +79,19 @@ export const addTrackToPlaylist = (spotify,uri,playlistId) => (dispatch) =>{
         }
     })
 }
-export const fetchPlaylist = (spotify,playlistId) => (dispatch) =>{
-    spotify.getPlaylist(playlistId,function(err,playlist){
-        if(err){
-            console.log(err);
-        }
-        else{
-            dispatch({
-                type:"FETCH_PLAYLIST",
-                payload:playlist
-            })
-        }
-    })
-}
-
+export const removeTrackFromPlaylist = (spotify,playlistId,uri) => (dispatch) =>{
+        spotify.removeTracksFromPlaylist(playlistId,uri,function(err,removed){
+            if(err){
+                console.log(err);
+            }
+            else{
+                dispatch({
+                    type:"REMOVE_TRACK_FROM_PLAYLIST",
+                    payload:removed
+                })
+            }
+        })
+    }
 
 
 

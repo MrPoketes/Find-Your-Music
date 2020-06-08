@@ -5,6 +5,7 @@ import App from "../index.js";
 import Search from "../containers/Search";
 import PlaylistCreate from "../containers/PlaylistCreate";
 import { LinkContainer } from "react-router-bootstrap";
+import PlaylistModify from "../containers/PlaylistModify.js";
 
 var accessToken="";
 var isAccess = false;
@@ -41,6 +42,9 @@ export default class Navigation extends Component{
             </Route>
             <Route exact path="/search">
               <Search accessToken={accessToken}/>
+            </Route>
+            <Route exact path="/playlistMaker/modify">
+              <PlaylistModify accessToken={accessToken}/>
             </Route>
           </Switch>
           </Router>

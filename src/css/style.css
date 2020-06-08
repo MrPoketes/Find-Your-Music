@@ -2,6 +2,9 @@
   text-align: center;
   color:white;
 }
+
+/* Searchbar */
+
 .search{
   margin-right:30%;
   margin-left:34%;
@@ -13,6 +16,9 @@
 .search-div{
   margin-top:2%;
 }
+
+/* Card styles */
+
 .card-text{
   text-decoration: none;
   color:white;
@@ -38,13 +44,20 @@
   margin-top:1%;
   margin-bottom:1%;
 }
+
+/* SearchContainer */
+
 .SearchContainer{
   margin-top:1%;
 }
+
+/* Playlist form */
+
 .form{
   width:100% !important;
 }
 .formCenter{
+  margin-top:2%;
   margin-right: 30%;
   margin-left:30%;
 }
@@ -52,6 +65,20 @@
   position: relative;
   left:20%;
   text-align: left;
-  /* background-color:red; */
   width:80%;
+}
+
+/* Playlist showcase items */
+.remove{
+  display:inline;
+  visibility: hidden;
+}
+.fa-times{
+  position: relative;
+  font-size: 25px;
+  left:50%;
+  color:red;
+}
+.figure:hover .remove{
+  visibility: visible;
 }
