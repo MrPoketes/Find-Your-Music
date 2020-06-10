@@ -46,9 +46,7 @@ class PlaylistModify extends Component{
     }
     // Handling user selected playlist by fetching it's tracks and showing them
     handleSelectPlaylist(image,title,owner,uri,id,description){
-        setTimeout(()=>{
-            this.props.fetchPlaylistTracks(spotifyApi,id);
-        },500)
+        this.props.fetchPlaylistTracks(spotifyApi,id);
         playlistId = id;
         playlistImage=image;
         playlistTitle=title;
@@ -103,11 +101,13 @@ class PlaylistModify extends Component{
         }
     }
     // Handling merging playlists. Takes the track object from the selected object and then adds it to the current playlist.
-    handleMerge(mergePlaylist){
+    handleMerge(mergePlaylist,mergeId){
         if(mergePlaylist.items.length!==0){
             let uri=[];
             for(let i=0;i!==mergePlaylist.items.length;i++){
-                uri.push(mergePlaylist.items[i].uri);
+                if(mergeId!==playlistId){
+                    uri.push(mergePlaylist.items[i].uri);
+                }
             }
             this.props.addTrackToPlaylist(spotifyApi,uri,playlistId);
             // Fetches the new playlist tracks to update the screen

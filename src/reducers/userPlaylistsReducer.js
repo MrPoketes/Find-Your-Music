@@ -25,7 +25,7 @@ const userPlaylistsReducer = (state=initialState,action)=>{
                     id:itemObj.id,
                     image:imageCheck,
                     owner:itemObj.owner.display_name,
-                    tracks:itemObj
+                    description:itemObj.description
                 });
                 newItems.push(newObj);
             }

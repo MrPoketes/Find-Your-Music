@@ -10,7 +10,7 @@ class PlaylistDropdown extends Component{
     }
     handleClick(){
         this.props.fetchMergeTracks(this.props.spotify,this.props.id);
-        setTimeout(()=>{this.props.handleSelect(this.props.merged);},1000)
+        setTimeout(()=>{this.props.handleSelect(this.props.merged,this.props.id);},1000)
     }
     render(){
         return(
