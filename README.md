@@ -8,9 +8,12 @@
 
 <h2>Todo List:</h2>
 <ul>
-<li>Add the the ability to make your own spotify playlist using the website</li>
-<li>Add animations</li>
-<li>Perhaps add a player so the user can listen to the music they selected on the website (or atleast the preview)</li>
+<li> - [x] Add the the ability to make your own spotify playlist using the website</li>
+<li> - [] Let the user upload a custom image to their playlists and also let them modify the name and description of a playlist</li>
+<li> - [] Style the website better</li>
+<li> - [] Add animations</li>
+<li> - [] Perhaps add a player so the user can listen to the music they selected on the website (or atleast the preview)</li>
+
 </ul>
 <h2>Authorization Screen</h2>
 <img src="https://i.imgur.com/X5BQu13.png"/>
