@@ -9,8 +9,11 @@ import queryString from 'query-string';
 import SignInButton from "./components/SignInButton";
 import Home from './containers/Home';
 import {BrowserRouter as Router} from "react-router-dom";
-
+import {connect} from "react-redux";
+import * as SpotifyWebApi from "spotify-web-api-js";
+import {fetchUserData} from "./actions/index.js";
 //Global variables
+var spotifyApi = new SpotifyWebApi();
 let accessToken="";
 let isAccessToken = false;
 let parsed = queryString.parse(window.location.search);
@@ -18,11 +21,11 @@ if(parsed.access_token){
   accessToken = parsed.access_token;
 }
 
-export default class App extends Component {
+class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-    };
+    spotifyApi.setAccessToken(this.props.access);
+    this.props.fetchUserData(accessToken);
   }
   componentDidMount(){
     // Getting the accessToken
@@ -44,7 +47,7 @@ export default class App extends Component {
   render(){
       return (
         <div className="app">
-          {isAccessToken ?
+          {isAccessToken && this.props.userData ?
           <div>
             <div>
               <Home access={accessToken}/>
@@ -56,7 +59,16 @@ export default class App extends Component {
       );
     }
   }
-
+const mapStateToProps = (state) =>{
+    return{
+      userData: state.userData.data,
+    };
+  };
+const mapDispatchToProps = {
+      fetchUserData,
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+  
 ReactDOM.render(
   <Router>
     <div>

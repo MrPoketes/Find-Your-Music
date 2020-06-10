@@ -1,14 +1,15 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {fetchUserData,createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist} from "../actions/index.js";
+import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist} from "../actions/index.js";
 import {connect} from "react-redux";
 import {Container,Row,Col} from "react-bootstrap";
 import SearchBar from "../components/SearchComponents/SearchBar";
-// import queryString from 'query-string';
 import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplate";
 import PlaylistForm from "../components/Playlists/PlaylistForm";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
+import { LinkContainer } from "react-router-bootstrap";
+import {Button} from "react-bootstrap";
 
 // Global variables
 var spotifyApi = new SpotifyWebApi();
@@ -30,9 +31,6 @@ class PlaylistCreate extends Component{
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
-    }
-    componentDidMount(){
-        this.props.fetchUserData(spotifyApi);
     }
     // Form Submit
     handleFormSubmit(name,description){
@@ -69,8 +67,8 @@ class PlaylistCreate extends Component{
         // Removing the item from songs object so it can render the correct tracks
         let songObj = {}
         let songsItems = [];
-        for(let i=0;i!=songs.items.length;i++){
-            if(key!=i){
+        for(let i=0;i!==songs.items.length;i++){
+            if(key!==i){
                 let obj = {};
                 obj = Object.assign({},obj,{
                     image:songs.items[i].image,
@@ -128,8 +126,11 @@ class PlaylistCreate extends Component{
                             {this.props.modifiedTracks ?
                             <div>
                                 {songs.items.map((item,i)=>
-                                    <PlaylistTrackTemplate x={this.state.rerender} remove={this.handleRemove} key={i} pos={i} link={item.uri} image={item.image} title={item.title} name={item.name}/>
+                                    <PlaylistTrackTemplate remove={this.handleRemove} key={i} pos={i} link={item.uri} image={item.image} title={item.title} name={item.name}/>
                                 )}
+                                <LinkContainer exact to="/">
+                                    <Button variant="success" size="lg">Save</Button>
+                                </LinkContainer>
                             </div>:<div></div>
                         }
                         </Col>
@@ -154,7 +155,6 @@ const mapStateToProps = (state)=>{
     }
 }
 const mapDispatchToProps = {
-    fetchUserData,
     createNewPlaylist,
     search,
     addTrackToPlaylist,

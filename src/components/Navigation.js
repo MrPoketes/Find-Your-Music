@@ -8,12 +8,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import PlaylistModify from "../containers/PlaylistModify.js";
 
 var accessToken="";
-var isAccess = false;
 export default class Navigation extends Component{
   constructor(props){
     super(props);
     accessToken = this.props.access;
-    isAccess = true;
   }
     render(){
         return(

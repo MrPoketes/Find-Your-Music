@@ -8,11 +8,6 @@ const createPlaylistReducer = (state=initialState,action)=>{
                 ...state,
                 newPlaylist:action.payload
             }
-        case "FETCH_PLAYLIST":
-            return{
-                ...state,
-                newPlaylist:action.payload
-            }
         default:
             return state
     }

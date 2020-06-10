@@ -18,7 +18,6 @@ export default class PlaylistForm extends Component{
             this.setState({
                 valid:true
             })
-            // var image = ReactDOM.findDOMNode(this.refs.image).value;
             var description = ReactDOM.findDOMNode(this.refs.description).value;
             this.props.submitForm(name,description);
         }
@@ -40,11 +39,6 @@ export default class PlaylistForm extends Component{
                         <Form.Label>Description</Form.Label>
                         <Form.Control ref="description" type="text" placeholder="Enter playlist description"/>
                     </Form.Group>
-                    {/* <Form.File ref="image" 
-                    id="custom-file"
-                    label="Custom file input"
-                    custom
-                    /> */}
                     <Button onClick={this.handleSubmit} variant="success" type="submit" size="lg">Submit</Button>
                 </Form>
                 {this.state.valid ?

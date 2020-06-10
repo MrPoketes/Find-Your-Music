@@ -9,7 +9,7 @@ class SearchItemTemplate extends Component{
     }
     handleClick(){
         if(this.props.handleAdd!==undefined){
-            this.props.handleAdd(this.props.image,this.props.title,this.props.name,this.props.uri);
+            this.props.handleAdd(this.props.image,this.props.title,this.props.name,this.props.uri,this.props.id,this.props.description);
         }
     }
     render(){

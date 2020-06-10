@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import * as SpotifyWebApi from "spotify-web-api-js";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchUserData,fetchTopTracks,fetchNewAlbums} from "../actions/index.js";
+import {fetchTopTracks,fetchNewAlbums} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
 import MusicCards from "../components/Cards/MusicCards";
 
@@ -23,14 +23,14 @@ class Home extends Component {
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleShowAlbumsClick = this.handleShowAlbumsClick.bind(this);
     this.handleNewReleasesClick = this.handleNewReleasesClick.bind(this);
+
+    spotifyApi.setAccessToken(this.props.access);
   }
   componentDidMount(){
     this.setState({
       accessToken:this.props.access
     })
     //Setting the access token to the spotifyApi so I could then pass it to the actions to fetch data
-    spotifyApi.setAccessToken(this.props.access);
-    this.props.fetchUserData(spotifyApi);
     this.props.fetchTopTracks(spotifyApi);
     this.props.fetchNewAlbums(spotifyApi);
   }
@@ -115,10 +115,10 @@ const mapStateToProps = (state) =>{
     userData: state.userData.data,
     topTracks: state.topTracks.tracks,
     newAlbums: state.newReleases.albums,
+    playlists:state.userPlaylist.playlists
   };
 };
 const mapDispatchToProps = {
-    fetchUserData,
     fetchTopTracks,
     fetchNewAlbums,
 }

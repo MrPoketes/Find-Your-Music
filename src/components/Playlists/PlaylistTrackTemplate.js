@@ -16,7 +16,7 @@ export default class PlaylistTrackTemplate extends Component{
                 <span>
                 <Figure className="figure" style={{marginRight:"1%"}} onClick={this.handleClick}>
                     <div className="remove">
-                        <i class="fas fa-times"></i>
+                        <i className="fas fa-times"></i>
                     </div>
                     <Figure.Image rounded={true} width={45} height={45} src={this.props.image} alt="none"/>
                 </Figure>

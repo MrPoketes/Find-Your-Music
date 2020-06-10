@@ -1,17 +1,16 @@
-
-export const fetchUserData = (spotify) => (dispatch) =>{
-    spotify.getMe(function(err,data){
-        if(err){
-            console.log(err);
-        }
-        else{
+// User
+export const fetchUserData = (accessToken) => (dispatch) =>{
+    fetch('https://api.spotify.com/v1/me',{
+        headers:{'Authorization':'Bearer '+ accessToken}})
+        .then(res=>res.json())
+        .then(data=>
             dispatch({
                 type:"FETCH_USER_DATA",
                 payload:data
-            })
-        }
-    })
+            }))
 }
+
+// Main menu
 
 export const fetchTopTracks = (spotify) => (dispatch) =>{
     spotify.getMyTopTracks({limit:12},function(err,tracks){
@@ -40,10 +39,12 @@ export const fetchNewAlbums = (spotify) => (dispatch) =>{
     })
 }
 
+// Search
+
 export const search = (spotify,input) => (dispatch) =>{
     spotify.search(input,['album','playlist','track','artist'],{limit:4},function(err,searchData){
         if(err){
-            console.log(err);
+            return;
         }
         else{
             dispatch({
@@ -53,6 +54,9 @@ export const search = (spotify,input) => (dispatch) =>{
         }
     })
 }
+
+// Playlist actions
+
 export const createNewPlaylist = (spotify,user_id,name,description) => (dispatch) =>{
     spotify.createPlaylist(user_id,{name:name,description:description},function(err,playlist){
         if(err){
@@ -93,7 +97,35 @@ export const removeTrackFromPlaylist = (spotify,playlistId,uri) => (dispatch) =>
         })
     }
 
+export const fetchUserPlaylists = (spotify,userId) => (dispatch) =>{
+    spotify.getUserPlaylists(userId,{limit:50},function(err,playlists){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"FETCH_USER_PLAYLISTS",
+                payload:playlists.items
+            })
+        }
+    })
+}
 
+
+export const fetchPlaylistTracks = (spotify,playlistId) => (dispatch) =>{
+    spotify.getPlaylistTracks(playlistId,function(err,tracks){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"FETCH_PLAYLIST_TRACKS",
+                payload:tracks.items
+            })
+        }
+    })
+}
+    
 
 
 
