@@ -71,7 +71,7 @@ export const createNewPlaylist = (spotify,user_id,name,description) => (dispatch
     })
 }
 export const addTrackToPlaylist = (spotify,uri,playlistId) => (dispatch) =>{
-    spotify.addTracksToPlaylist(playlistId,[uri],function(err,add){
+    spotify.addTracksToPlaylist(playlistId,uri,function(err,add){
         if(err){
             console.log(err);
         }
@@ -125,7 +125,50 @@ export const fetchPlaylistTracks = (spotify,playlistId) => (dispatch) =>{
         }
     })
 }
-    
+export const deletePlaylist = (spotify,playlistId) => (dispatch) =>{
+    spotify.unfollowPlaylist(playlistId,function(err,unfollow){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"DELETE_PLAYLIST",
+                payload:unfollow
+            })
+        }
+    })
+}
+export const fetchMergeTracks = (spotify,playlistId) => (dispatch) =>{
+    spotify.getPlaylistTracks(playlistId,function(err,tracks){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"FETCH_MERGE_TRACKS",
+                payload:tracks.items
+            })
+        }
+    })
+}
+ 
+// Unmounting
+
+export const unmountSearch = () => (dispatch) =>{
+    dispatch({
+        type:"UNMOUNT_SEARCH"
+    })
+}
+export const unmountUserPlaylist = () => (dispatch) =>{
+    dispatch({
+        type:"UNMOUNT_USER_PLAYLIST"
+    })
+}
+export const unmountCreated = () => (dispatch) =>{
+    dispatch({
+        type:"UNMOUNT_CREATED"
+    })
+}
 
 
 

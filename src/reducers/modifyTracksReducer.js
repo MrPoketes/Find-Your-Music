@@ -13,6 +13,10 @@ const modifyTracksReducer = (state=initialState,action)=>{
                 ...state,
                 items:action.payload
             }
+        case "DELETE_PLAYLIST":
+            return{
+                ...state
+            }
         default:
             return state;
     }

@@ -118,7 +118,11 @@ const searchReducer = (state=initialState,action) =>{
             else{
                 return state
             }
-            
+        case "UNMOUNT_SEARCH":
+            return{
+                ...state,
+                data:null
+            }
         default:
             return state
     }

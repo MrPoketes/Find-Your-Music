@@ -104,8 +104,8 @@ class Home extends Component {
 }
 // PropTypes
 Home.propTypes={
-  fetchUserData:PropTypes.func.isRequired,
   fetchTopTracks:PropTypes.func.isRequired,
+  fetchNewAlbums:PropTypes.func.isRequired,
   userData:PropTypes.object,
   topTracks:PropTypes.object,
 }

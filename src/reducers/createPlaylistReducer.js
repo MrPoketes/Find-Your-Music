@@ -8,6 +8,11 @@ const createPlaylistReducer = (state=initialState,action)=>{
                 ...state,
                 newPlaylist:action.payload
             }
+        case "UNMOUNT_CREATED":
+            return{
+                ...state,
+                newPlaylist:null
+            }
         default:
             return state
     }

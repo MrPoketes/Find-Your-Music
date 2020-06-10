@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist} from "../actions/index.js";
+import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist,unmountCreated,unmountSearch} from "../actions/index.js";
 import {connect} from "react-redux";
 import {Container,Row,Col} from "react-bootstrap";
 import SearchBar from "../components/SearchComponents/SearchBar";
@@ -20,10 +20,6 @@ let newItems = [];
 class PlaylistCreate extends Component{
     constructor(props){
         super(props);
-        this.state={
-            isCreateClicked:false,
-            isModifyClicked:false,
-        }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
         // Handler functions
@@ -31,6 +27,11 @@ class PlaylistCreate extends Component{
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
+    }
+    componentWillUnmount(){
+        songs={};
+        this.props.unmountCreated();
+        this.props.unmountSearch();
     }
     // Form Submit
     handleFormSubmit(name,description){
@@ -45,7 +46,7 @@ class PlaylistCreate extends Component{
     }
     // Handling adding a track to a playlist
     handleAdd(image,name,title,link){
-        this.props.addTrackToPlaylist(spotifyApi,link,this.props.playlist.id);
+        this.props.addTrackToPlaylist(spotifyApi,[link],this.props.playlist.id);
         // Assigning the track to a variable so it can be shown
         let newObj = {};
         let songObj = {};
@@ -158,6 +159,8 @@ const mapDispatchToProps = {
     createNewPlaylist,
     search,
     addTrackToPlaylist,
-    removeTrackFromPlaylist
+    removeTrackFromPlaylist,
+    unmountCreated,
+    unmountSearch
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistCreate);

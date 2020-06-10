@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchComponents/SearchBar";
 import SearchContainer from "../components/SearchComponents/SearchContainer";
 import "../css/style.css";
 import {connect} from "react-redux";
-import {search} from "../actions/index.js";
+import {search,unmountSearch} from "../actions/index.js";
 import * as SpotifyWebApi from "spotify-web-api-js";
 // import queryString from 'query-string';
 
@@ -20,10 +20,9 @@ class Search extends Component{
         this.handleSearch = this.handleSearch.bind(this);
         spotifyApi.setAccessToken(accessToken);
     }
-    // componentDidMount(){
-    //     let parsed = queryString.parse(window.location.search);
-    //     accessToken = parsed.access_token;
-    // }
+    componentWillMount(){
+        this.props.unmountSearch();
+    }
     handleSearch(value){   
         input = value;
         if(input!==""){
@@ -50,7 +49,8 @@ const mapStateToProps = (state) =>{
     };
   };
   const mapDispatchToProps = {
-      search
+      search,
+      unmountSearch
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Search);
   

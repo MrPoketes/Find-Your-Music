@@ -1,13 +1,15 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks} from "../actions/index.js";
+import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks,deletePlaylist,unmountUserPlaylist,unmountSearch} from "../actions/index.js";
 import {connect} from "react-redux";
 import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplate";
-import {Container,Row,Col,Button, Figure} from "react-bootstrap";
+import {Container,Row,Col,Button,Figure,Dropdown} from "react-bootstrap";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import SearchBar from "../components/SearchComponents/SearchBar";
 import {LinkContainer} from "react-router-bootstrap";
+import PlaylistDropdown from "../components/Playlists/PlaylistDropdown";
+
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 var accessToken = "";
@@ -17,24 +19,33 @@ let playlistTitle="";
 let playlistDescription="";
 let playlistOwner="";
 let playlistId = "";
-// let songs = null;
 
 class PlaylistModify extends Component{
     constructor(props){
         super(props);
+        this.state={
+            areYouSure:false,
+            leave:"/playlistMaker/modify",
+        }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
+        // Handler functions
         this.handleSelectPlaylist = this.handleSelectPlaylist.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAddTrack = this.handleAddTrack.bind(this);
         this.handleRemoveTrack = this.handleRemoveTrack.bind(this);
+        this.handleRemovePlaylist = this.handleRemovePlaylist.bind(this);
+        this.handleMerge = this.handleMerge.bind(this);
     }
     componentDidMount(){
         this.props.fetchUserPlaylists(spotifyApi,this.props.user.id)
     }
+    componentWillUnmount(){
+        this.props.unmountUserPlaylist();
+        this.props.unmountSearch();
+    }
+    // Handling user selected playlist by fetching it's tracks and showing them
     handleSelectPlaylist(image,title,owner,uri,id,description){
-        let songObj= {};
-        let songItems=[];
         setTimeout(()=>{
             this.props.fetchPlaylistTracks(spotifyApi,id);
         },500)
@@ -44,18 +55,22 @@ class PlaylistModify extends Component{
         playlistDescription=description;
         playlistOwner=owner;
     }
+    // Handling user searched tracks by fetching searched tracks
     handleSearch(input){
         let value = input;
         if(value!==""){
             this.props.search(spotifyApi,value);
         }
     }
+    // Handling adding a new track to playlist
     handleAddTrack(image,title,name,uri,id){
-        this.props.addTrackToPlaylist(spotifyApi,uri,playlistId);
+        this.props.addTrackToPlaylist(spotifyApi,[uri],playlistId);
+        // Fetches modified playlist tracks to update the screen
         setTimeout(()=>{
             this.props.fetchPlaylistTracks(spotifyApi,playlistId);
         },500)
     }
+    // Handling removing a track from playlist
     handleRemoveTrack(key,link){
         let items = []
         let tracks = {};
@@ -70,9 +85,36 @@ class PlaylistModify extends Component{
         })
         // Calling remove
         this.props.removeTrackFromPlaylist(spotifyApi,playlistId,tracks.tracks);
+        // Fetches modified playlist tracks to update the screen
         setTimeout(()=>{
             this.props.fetchPlaylistTracks(spotifyApi,playlistId);
-        },500)
+        },500);
+    }
+    // Handling removing/unfollowing a playlist
+    handleRemovePlaylist(){
+        if(this.state.areYouSure===false){
+            this.setState({
+                areYouSure:true,
+                leave:"/"
+            })
+        }
+        else if(this.state.areYouSure===true){
+            this.props.deletePlaylist(spotifyApi,playlistId);
+        }
+    }
+    // Handling merging playlists. Takes the track object from the selected object and then adds it to the current playlist.
+    handleMerge(mergePlaylist){
+        if(mergePlaylist.items.length!==0){
+            let uri=[];
+            for(let i=0;i!==mergePlaylist.items.length;i++){
+                uri.push(mergePlaylist.items[i].uri);
+            }
+            this.props.addTrackToPlaylist(spotifyApi,uri,playlistId);
+            // Fetches the new playlist tracks to update the screen
+            setTimeout(()=>{
+                this.props.fetchPlaylistTracks(spotifyApi,playlistId);
+            },500)
+        }
     }
     render(){
         return(
@@ -95,9 +137,30 @@ class PlaylistModify extends Component{
                         </Col>
                         <Col>
                         {/* Playlist showcase section */}
-                            <Figure style={{margin:"0",padding:"0",marginTop:"1%"}}>
-                                <Figure.Image rounded={true} width={100} height={100} src={playlistImage} alt="None"/>
-                            </Figure>
+                            <div className="modify">
+                                {/* Playlist Image */}
+                                <Figure className="playlist-image" style={{margin:"0",padding:"0",marginTop:"1%"}}>
+                                        <Figure.Image rounded={true} width={150} height={150} src={playlistImage} alt="None"/>
+                                </Figure>
+                                {/* Delete Button */}
+                                <div style={{display:"inline"}}>
+                                <LinkContainer style={{margin:"1%"}} exact to={this.state.leave}>
+                                    <Button variant="success" onClick={this.handleRemovePlaylist}>{this.state.areYouSure ? "Are you Sure?":"Delete Playlist"}</Button>
+                                </LinkContainer>
+                                {/* Merge Dropdown */}
+                                    <Dropdown style={{display:"inline"}}>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            Merge playlist with another
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            {this.props.playlists.items.map((playlist,i)=>
+                                            <PlaylistDropdown key={i} id={playlist.id} spotify={spotifyApi} handleSelect={this.handleMerge} name={playlist.name}/>
+                                            )}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                            </div>
+                            {/* Playlist details */}
                             <h2>{playlistTitle}</h2>
                             <h4>{playlistDescription}</h4>
                             <h4>Created by: {playlistOwner}</h4>
@@ -147,5 +210,8 @@ const mapDispatchToProps = {
     removeTrackFromPlaylist,
     fetchUserPlaylists,
     fetchPlaylistTracks,
+    deletePlaylist,
+    unmountUserPlaylist,
+    unmountSearch
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistModify);

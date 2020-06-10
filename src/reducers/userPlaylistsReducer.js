@@ -1,7 +1,8 @@
 var image = require('../images/missingImage.PNG')
 const initialState = {
     playlists:null,
-    tracks:null
+    tracks:null,
+    merge:null
 }
 const userPlaylistsReducer = (state=initialState,action)=>{
     switch(action.type){
@@ -73,6 +74,51 @@ const userPlaylistsReducer = (state=initialState,action)=>{
             return{
                 ...state,
                 tracks:trackObj
+            }
+        case "FETCH_MERGE_TRACKS":
+            let mergeItemsTracks = [];
+            if(action.payload.length===0){
+                return{
+                    ...state,
+                    merge:{items:mergeItemsTracks}
+                }
+            }
+            for(let i=0;i!==action.payload.length;i++){
+                let itemObj = {};
+                itemObj = Object.assign({},itemObj,action.payload[i]);
+                let itemArtists = "";
+                for(let j=0;j!==itemObj.track.artists.length;j++){
+                    if(j!==itemObj.track.artists.length-1){
+                        itemArtists+=itemObj.track.artists[j].name+", ";
+                    }
+                    else{
+                        itemArtists+=itemObj.track.artists[j].name;
+                    }
+                }
+                let newObj = {};
+                newObj = Object.assign({},newObj,{
+                    title: itemObj.track.name,
+                    artists: itemArtists,
+                    uri: itemObj.track.uri,
+                    images:itemObj.track.album.images[0].url,
+                    description:itemObj.description
+                });
+                mergeItemsTracks.push(newObj);
+            }
+            let mergeObj = {};
+            mergeObj = Object.assign({},mergeObj,{
+                items:mergeItemsTracks
+            });
+            return{
+                ...state,
+                merge:mergeObj
+            }
+        case "UNMOUNT_USER_PLAYLIST":
+            return{
+                ...state,
+                playlists:null,
+                tracks:null,
+                merge:null
             }
         default:
             return state
