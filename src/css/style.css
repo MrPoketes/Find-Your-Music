@@ -82,7 +82,13 @@
 .figure:hover .remove{
   visibility: visible;
 }
-/* .playlist-image{
-  position: relative;
-  right:4%;
-} */
+.playlistDetails{
+  margin-right:45%;
+  margin-left:25%;
+  width:50% !important;
+}
+.image{
+  margin-top:1%;
+  width:150px;
+  height:150px;
+}

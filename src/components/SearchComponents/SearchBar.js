@@ -9,6 +9,7 @@ export default class SearchBar extends Component{
     handleClick(e){
         e.preventDefault();
         var inputValue = ReactDOM.findDOMNode(this.refs.input).value;
+        console.log(inputValue);
         this.props.searchPress(inputValue);
     }
     render(){

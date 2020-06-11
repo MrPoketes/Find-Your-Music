@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist,unmountCreated,unmountSearch} from "../actions/index.js";
+import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist,unmountCreated,unmountSearch,updatePlaylistDetails} from "../actions/index.js";
 import {connect} from "react-redux";
 import {Container,Row,Col} from "react-bootstrap";
 import SearchBar from "../components/SearchComponents/SearchBar";
@@ -10,7 +10,7 @@ import PlaylistForm from "../components/Playlists/PlaylistForm";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import { LinkContainer } from "react-router-bootstrap";
 import {Button} from "react-bootstrap";
-
+import PlaylistDetails from "../components/Playlists/PlaylistDetails";
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 let input = "";
@@ -27,6 +27,7 @@ class PlaylistCreate extends Component{
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleDetailUpdate = this.handleDetailUpdate.bind(this);
     }
     componentWillUnmount(){
         songs={};
@@ -100,6 +101,15 @@ class PlaylistCreate extends Component{
         // Calling remove
         this.props.removeTrackFromPlaylist(spotifyApi,this.props.playlist.id,tracks.tracks);
     }
+    // Updating playlist details
+    handleDetailUpdate(title,description){
+        let data = {};
+        data = Object.assign({},data,{
+            name:title,
+            description:description
+        });
+        this.props.updatePlaylistDetails(spotifyApi,data,this.props.playlist.id);
+    }
     render(){
         return(
             <div className="app">
@@ -121,9 +131,10 @@ class PlaylistCreate extends Component{
                         <Col>
                         {/* Playlist showcase section */}
                             <h1 style={{margin:"1%"}}>Playlist</h1>
-                            <h2>{this.props.playlist.name}</h2>
+                            <PlaylistDetails title={this.props.playlist.name} description={this.props.playlist.description} owner={this.props.user.display_name} updateDetails={this.handleDetailUpdate}/>
+                            {/* <h2>{this.props.playlist.name}</h2>
                             <h4>{this.props.playlist.description}</h4>
-                            <h4>Created by: {this.props.user.display_name}</h4>
+                            <h4>Created by: {this.props.user.display_name}</h4> */}
                             {this.props.modifiedTracks ?
                             <div>
                                 {songs.items.map((item,i)=>
@@ -161,6 +172,7 @@ const mapDispatchToProps = {
     addTrackToPlaylist,
     removeTrackFromPlaylist,
     unmountCreated,
-    unmountSearch
+    unmountSearch,
+    updatePlaylistDetails
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistCreate);

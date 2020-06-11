@@ -151,7 +151,19 @@ export const fetchMergeTracks = (spotify,playlistId) => (dispatch) =>{
         }
     })
 }
- 
+export const updatePlaylistDetails = (spotify,data,playlistId) => (dispatch) =>{
+    spotify.changePlaylistDetails(playlistId,data,function(err,update){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"UPDATE_DETAILS",
+                payload:update
+            })
+        }
+    })
+}
 // Unmounting
 
 export const unmountSearch = () => (dispatch) =>{

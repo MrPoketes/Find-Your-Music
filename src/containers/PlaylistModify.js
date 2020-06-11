@@ -1,23 +1,20 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks,deletePlaylist,unmountUserPlaylist,unmountSearch} from "../actions/index.js";
+import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks,deletePlaylist,unmountUserPlaylist,unmountSearch,updatePlaylistDetails} from "../actions/index.js";
 import {connect} from "react-redux";
 import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplate";
-import {Container,Row,Col,Button,Figure,Dropdown} from "react-bootstrap";
+import {Container,Row,Col,Button,Figure,Dropdown,Image} from "react-bootstrap";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import SearchBar from "../components/SearchComponents/SearchBar";
 import {LinkContainer} from "react-router-bootstrap";
 import PlaylistDropdown from "../components/Playlists/PlaylistDropdown";
+import PlaylistDetails from "../components/Playlists/PlaylistDetails";
 
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 var accessToken = "";
 let id = "";
-let playlistImage="";
-let playlistTitle="";
-let playlistDescription="";
-let playlistOwner="";
 let playlistId = "";
 
 class PlaylistModify extends Component{
@@ -26,6 +23,10 @@ class PlaylistModify extends Component{
         this.state={
             areYouSure:false,
             leave:"/playlistMaker/modify",
+            playlistTitle:"",
+            playlistDescription:"",
+            playlistOwner:"",
+            playlistImage:"",
         }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
@@ -36,6 +37,7 @@ class PlaylistModify extends Component{
         this.handleRemoveTrack = this.handleRemoveTrack.bind(this);
         this.handleRemovePlaylist = this.handleRemovePlaylist.bind(this);
         this.handleMerge = this.handleMerge.bind(this);
+        this.handleDetailUpdate = this.handleDetailUpdate.bind(this);
     }
     componentDidMount(){
         this.props.fetchUserPlaylists(spotifyApi,this.props.user.id)
@@ -48,10 +50,13 @@ class PlaylistModify extends Component{
     handleSelectPlaylist(image,title,owner,uri,id,description){
         this.props.fetchPlaylistTracks(spotifyApi,id);
         playlistId = id;
-        playlistImage=image;
-        playlistTitle=title;
-        playlistDescription=description;
-        playlistOwner=owner;
+        this.setState({
+            playlistTitle:title,
+            playlistDescription:description,
+            playlistOwner:owner,
+            playlistImage:image,
+        })
+        // playlistTitle=title;
     }
     // Handling user searched tracks by fetching searched tracks
     handleSearch(input){
@@ -116,6 +121,19 @@ class PlaylistModify extends Component{
             },500)
         }
     }
+    // Updating playlist details
+    handleDetailUpdate(title,description){
+        let data = {};
+        data = Object.assign({},data,{
+            name:title,
+            description:description
+        });
+        this.props.updatePlaylistDetails(spotifyApi,data,playlistId);
+        this.setState({
+            playlistTitle:title,
+            playlistDescription:description
+        })
+    }
     render(){
         return(
             <div className="app">
@@ -138,10 +156,12 @@ class PlaylistModify extends Component{
                         <Col>
                         {/* Playlist showcase section */}
                             <div className="modify">
+
                                 {/* Playlist Image */}
-                                <Figure className="playlist-image" style={{margin:"0",padding:"0",marginTop:"1%"}}>
-                                        <Figure.Image rounded={true} width={150} height={150} src={playlistImage} alt="None"/>
-                                </Figure>
+                                <Image className="image" rounded={true} src={this.state.playlistImage}/>
+                                {/* Playlist details */}
+                                <PlaylistDetails title={this.state.playlistTitle} description={this.state.playlistDescription} owner={this.state.playlistOwner} updateDetails={this.handleDetailUpdate}/>
+
                                 {/* Delete Button */}
                                 <div style={{display:"inline"}}>
                                 <LinkContainer style={{margin:"1%"}} exact to={this.state.leave}>
@@ -160,10 +180,6 @@ class PlaylistModify extends Component{
                                     </Dropdown>
                                 </div>
                             </div>
-                            {/* Playlist details */}
-                            <h2>{playlistTitle}</h2>
-                            <h4>{playlistDescription}</h4>
-                            <h4>Created by: {playlistOwner}</h4>
                             {this.props.tracks ?
                             <div>
                                 {this.props.tracks.items.map((item,i)=>
@@ -212,6 +228,7 @@ const mapDispatchToProps = {
     fetchPlaylistTracks,
     deletePlaylist,
     unmountUserPlaylist,
-    unmountSearch
+    unmountSearch,
+    updatePlaylistDetails
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistModify);

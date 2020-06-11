@@ -2,7 +2,8 @@ var image = require('../images/missingImage.PNG')
 const initialState = {
     playlists:null,
     tracks:null,
-    merge:null
+    merge:null,
+    updated:null
 }
 const userPlaylistsReducer = (state=initialState,action)=>{
     switch(action.type){
@@ -118,7 +119,13 @@ const userPlaylistsReducer = (state=initialState,action)=>{
                 ...state,
                 playlists:null,
                 tracks:null,
-                merge:null
+                merge:null,
+                updated:null
+            }
+        case "UPDATE_DETAILS":
+            return{
+                ...state,
+                updated:action.payload
             }
         default:
             return state
