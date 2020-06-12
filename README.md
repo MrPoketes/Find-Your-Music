@@ -17,13 +17,17 @@
 
 </ul>
 <h2>Authorization Screen</h2>
-<img src="https://i.imgur.com/X5BQu13.png"/>
+<img src="https://i.imgur.com/Iy8UszS.png"/>
 <h2>Main Menu</h2>
-<img src="https://i.imgur.com/tbGe9zg.png"/>
-<img src="https://i.imgur.com/LEZPAto.png"/>
-<img src="https://i.imgur.com/RUexvw4.png"/>
+<img src="https://i.imgur.com/SUMjxRc.png"/>
+<img src="https://i.imgur.com/Y4CBHrb.png"/>
+<img src="https://i.imgur.com/AZfBUtg.png"/>
 <h2>Search Tab</h2>
-<img src="https://i.imgur.com/CaoC9xL.png"/>
-<img src="https://i.imgur.com/u5BVCC7.png"/>
-<img src="https://i.imgur.com/sfuL3Ah.png"/>
-<img src="https://i.imgur.com/ceUf3r1.png"/>
+<img src="https://i.imgur.com/Ar7SA3u.png"/>
+<img src="https://i.imgur.com/IEfm2WW.png"/>
+<h2>Create Playlist Section</h2>
+<img src="https://i.imgur.com/vGNJoi4.png"/>
+<img src="https://i.imgur.com/lia77ir.png"/>
+<h2>Modify Playlist Section</h2>
+<img src="https://i.imgur.com/LKIroiv.png"/>
+<img src="https://i.imgur.com/YSCBMs8.png"/>
