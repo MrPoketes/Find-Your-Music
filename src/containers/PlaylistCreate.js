@@ -42,7 +42,7 @@ class PlaylistCreate extends Component{
     handleSearch(value){   
         input = value;
         if(input!==""){
-          this.props.search(spotifyApi,input);
+          this.props.search(spotifyApi,input,12);
         }
     }
     // Handling adding a track to a playlist
@@ -123,7 +123,7 @@ class PlaylistCreate extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                            <SearchItemTemplate key={i} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists}/>
+                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} fullArtists={track.fullArtists} fullTitle={track.fullTitle}/>
                         )}
                         </div>:<div></div>
                         }
@@ -132,15 +132,12 @@ class PlaylistCreate extends Component{
                         {/* Playlist showcase section */}
                             <h1 style={{margin:"1%"}}>Playlist</h1>
                             <PlaylistDetails title={this.props.playlist.name} description={this.props.playlist.description} owner={this.props.user.display_name} updateDetails={this.handleDetailUpdate}/>
-                            {/* <h2>{this.props.playlist.name}</h2>
-                            <h4>{this.props.playlist.description}</h4>
-                            <h4>Created by: {this.props.user.display_name}</h4> */}
                             {this.props.modifiedTracks ?
                             <div>
                                 {songs.items.map((item,i)=>
                                     <PlaylistTrackTemplate remove={this.handleRemove} key={i} pos={i} link={item.uri} image={item.image} title={item.title} name={item.name}/>
                                 )}
-                                <LinkContainer exact to="/">
+                                <LinkContainer style={{fontFamily:'Raleway',marginTop:"1%",marginBottom:"1%"}} exact to="/">
                                     <Button variant="success" size="lg">Save</Button>
                                 </LinkContainer>
                             </div>:<div></div>

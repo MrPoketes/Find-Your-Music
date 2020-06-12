@@ -9,22 +9,27 @@ class SearchItemTemplate extends Component{
     }
     handleClick(){
         if(this.props.handleAdd!==undefined){
-            this.props.handleAdd(this.props.image,this.props.title,this.props.name,this.props.uri,this.props.id,this.props.description);
+            if(this.props.fullTitle!==undefined && this.props.fullArtists!==undefined){
+                this.props.handleAdd(this.props.image,this.props.fullArtists,this.props.fullTitle,this.props.uri,this.props.id,this.props.description);
+            }
+            else{
+                this.props.handleAdd(this.props.image,this.props.title,this.props.name,this.props.uri,this.props.id,this.props.description);
+            }
         }
     }
     render(){
         return(
             <Figure onClick={this.handleClick} style={{width:this.props.size,height:this.props.size,margin:"1%",marginBottom:"3%"}}>
                 <a href={this.props.url}>
-                <Figure.Image rounded={true} className="card"
+                <Figure.Image rounded={true} roundedCircle={this.props.circle} className="card"
                 width={302}
                 height={302}
                 src={this.props.image}
                 alt="None"/>
                 </a>
                 <Figure.Caption>
-                    <h3 style={{margin:"0",fontSize:this.props.font}}>{this.props.title}</h3>
-                    <p style={{fontSize:"12px"}}>{this.props.name}</p>
+                    <h3 style={{margin:"0",fontSize:this.props.font,color:"white"}}>{this.props.title}</h3>
+                    <p style={{fontSize:"10px",color:"white"}}>{this.props.name}</p>
                 </Figure.Caption>
             </Figure>
         )       

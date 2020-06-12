@@ -62,7 +62,7 @@ class PlaylistModify extends Component{
     handleSearch(input){
         let value = input;
         if(value!==""){
-            this.props.search(spotifyApi,value);
+            this.props.search(spotifyApi,value,12);
         }
     }
     // Handling adding a new track to playlist
@@ -148,7 +148,7 @@ class PlaylistModify extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                            <SearchItemTemplate key={i} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists}/>
+                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists}/>
                         )}
                         </div>:<div></div>
                         }
@@ -164,11 +164,11 @@ class PlaylistModify extends Component{
 
                                 {/* Delete Button */}
                                 <div style={{display:"inline"}}>
-                                <LinkContainer style={{margin:"1%"}} exact to={this.state.leave}>
+                                <LinkContainer style={{margin:"1%",fontFamily:'Raleway'}} exact to={this.state.leave}>
                                     <Button variant="success" onClick={this.handleRemovePlaylist}>{this.state.areYouSure ? "Are you Sure?":"Delete Playlist"}</Button>
                                 </LinkContainer>
                                 {/* Merge Dropdown */}
-                                    <Dropdown style={{display:"inline"}}>
+                                    <Dropdown style={{display:"inline",fontFamily:'Raleway'}}>
                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             Merge playlist with another
                                         </Dropdown.Toggle>
@@ -185,7 +185,7 @@ class PlaylistModify extends Component{
                                 {this.props.tracks.items.map((item,i)=>
                                     <PlaylistTrackTemplate key={i} pos={i} remove={this.handleRemoveTrack} link={item.uri} image={item.images} title={item.title} name={item.artists}/>
                                 )}
-                                <LinkContainer exact to="/">
+                                <LinkContainer style={{fontFamily:'Raleway',marginTop:"1%",marginBottom:"1%"}} exact to="/">
                                     <Button variant="success" size="lg">Save</Button>
                                 </LinkContainer>
                             </div>:<div></div>

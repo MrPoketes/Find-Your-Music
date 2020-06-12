@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+h1,h2,h3,h4,h5,p, Button{
+  font-family: 'Raleway', sans-serif;
+}
 .app {
   text-align: center;
   color:white;
 }
-
+.navigation-bar{
+  font-family: 'Raleway', sans-serif;
+  background: #4782ad
+}
 /* Searchbar */
 
 .search{
@@ -16,7 +23,6 @@
 .search-div{
   margin-top:2%;
 }
-
 /* Card styles */
 
 .card-text{
@@ -55,6 +61,7 @@
 
 .form{
   width:100% !important;
+  font-family:'Raleway';
 }
 .formCenter{
   margin-top:2%;
@@ -91,4 +98,8 @@
   margin-top:1%;
   width:150px;
   height:150px;
+}
+
+.details{
+  font-family: 'Raleway', sans-serif;
 }

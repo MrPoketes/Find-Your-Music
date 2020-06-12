@@ -14,7 +14,7 @@ class PlaylistDropdown extends Component{
     }
     render(){
         return(
-            <Dropdown.Item onClick={this.handleClick}>{this.props.name}</Dropdown.Item>
+            <Dropdown.Item style={{fontFamily:'Raleway'}} onClick={this.handleClick}>{this.props.name}</Dropdown.Item>
         )
     }
 }

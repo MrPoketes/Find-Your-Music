@@ -6,7 +6,7 @@ import Search from "../containers/Search";
 import PlaylistCreate from "../containers/PlaylistCreate";
 import { LinkContainer } from "react-router-bootstrap";
 import PlaylistModify from "../containers/PlaylistModify.js";
-
+import "../css/style.css";
 var accessToken="";
 export default class Navigation extends Component{
   constructor(props){
@@ -16,7 +16,7 @@ export default class Navigation extends Component{
     render(){
         return(
           <Router>
-            <Navbar bg="dark" variant="dark">
+            <Navbar variant="dark" className="navigation-bar">
             <Navbar.Brand >Find Your Music</Navbar.Brand>
             <Nav className="mr-auto">
               <NavLink className="nav-link" exact to="/">Home</NavLink>

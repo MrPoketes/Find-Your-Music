@@ -50,11 +50,19 @@ function assigning(items,type){
                 else{
                     checkImage=itemObj.images[0].url
                 }
+                let artists = itemArtists.slice(0,14);
+                if(itemArtists.length>14){
+                    artists+="...";
+                }
+                let title = itemObj.name.slice(0,22);
+                if(itemObj.name.length>=22){
+                    title+="...";
+                }
                 newObj = Object.assign({},newObj,{
-                    artists:itemArtists,
+                    artists:artists,
                     url:itemObj.external_urls.spotify,
                     images:checkImage,
-                    name:itemObj.name,
+                    name:title,
                     release_date:itemObj.release_date
                 })
             }
@@ -66,10 +74,14 @@ function assigning(items,type){
                 else{
                     checkImage=itemObj.images[0].url
                 }
+                let title = itemObj.name.slice(0,12);
+                if(itemObj.name.length>=12){
+                    title+="...";
+                }
                 newObj = Object.assign({},newObj,{
                     description:itemObj.description,
                     images:checkImage,
-                    title:itemObj.name,
+                    title:title,
                     url:itemObj.external_urls.spotify
                 })
             }
@@ -81,11 +93,21 @@ function assigning(items,type){
                 else{
                     checkImage=itemObj.album.images[0].url
                 }
+                let artists = itemArtists.slice(0,14);
+                if(itemArtists.length>14){
+                    artists+="...";
+                }
+                let title = itemObj.name.slice(0,22);
+                if(itemObj.name.length>=22){
+                    title+="...";
+                }
                 newObj = Object.assign({},newObj,{
-                    artists:itemArtists,
+                    fullTitle:itemObj.name,
+                    fullArtists:itemArtists,
+                    artists:artists,
                     url:itemObj.external_urls.spotify,
                     images:checkImage,
-                    title:itemObj.name,
+                    title:title,
                     uri:itemObj.uri,
                 })
             }

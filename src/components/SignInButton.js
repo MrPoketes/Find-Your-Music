@@ -6,7 +6,7 @@ const SignInButton = (props)=>{
     return(
         <div className="sign-in">
             <h2 className="welcome-text">Welcome to Find Your Music</h2>
-            <Button variant="success" size="lg" onClick={props.handleSignIn} >Sign in With Spotify</Button>
+            <Button style={{fontFamily:'Raleway'}} variant="success" size="lg" onClick={props.handleSignIn} >Sign in With Spotify</Button>
         </div>
         
     )

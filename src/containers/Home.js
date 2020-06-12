@@ -81,8 +81,8 @@ class Home extends Component {
               Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
             {/* Buttons for Top Tracks and New Releases */}
-            <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
-            <Button style={{"margin":"1%"}} variant="success" size="lg" onClick={this.handleNewReleasesClick}>{this.state.isShowNewClicked? "Hide New Releases":"Show New Releases"}</Button>
+            <Button style={{margin:"1%",fontFamily:'Raleway'}} variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
+            <Button style={{margin:"1%",fontFamily:'Raleway'}} variant="success" size="lg" onClick={this.handleNewReleasesClick}>{this.state.isShowNewClicked? "Hide New Releases":"Show New Releases"}</Button>
             {/* Handling clicking the buttons */}
             {this.state.isShowAlbumsClicked?
               <div>
