@@ -6,8 +6,8 @@ import store from "./stores/configureStore";
 import "./css/style.css";
 import queryString from 'query-string';
 import {BrowserRouter as Router} from "react-router-dom";
-import Helper from "./containers/Helper";
-
+import SpotifyPlayer from 'react-spotify-web-playback';
+import Navigation from "./components/Navigation";
 //Global variables
 let accessToken="";
 let parsed = queryString.parse(window.location.search);
@@ -19,7 +19,12 @@ ReactDOM.render(
   <Router>
     <div>
         <Provider store={store}>
-          <Helper accessToken={accessToken}/>
+          <Navigation access={accessToken}/>
+              {accessToken ?
+              <div className="player">
+                  <SpotifyPlayer token={accessToken} name="Find Your Music Player" styles={{bgColor:"#282c34",trackArtistColor:"white",trackNameColor:"white",color:"white",sliderColor:"limegreen",sliderHandleColor:"white"}}/>
+              </div>:<div></div>
+          }
       </Provider>  
     </div>
   </Router>,
