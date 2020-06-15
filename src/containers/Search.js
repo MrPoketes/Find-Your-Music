@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchComponents/SearchBar";
 import SearchContainer from "../components/SearchComponents/SearchContainer";
 import "../css/style.css";
 import {connect} from "react-redux";
-import {search,unmountSearch} from "../actions/index.js";
+import {search,unmountSearch,playTrack} from "../actions/index.js";
 import * as SpotifyWebApi from "spotify-web-api-js";
 
 var spotifyApi = new SpotifyWebApi();
@@ -17,6 +17,7 @@ class Search extends Component{
         }
         accessToken = this.props.accessToken;
         this.handleSearch = this.handleSearch.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
         spotifyApi.setAccessToken(accessToken);
     }
     componentWillUnmount(){
@@ -28,6 +29,9 @@ class Search extends Component{
           this.props.search(spotifyApi,input,4);
         }
     }
+    handlePlay(uri){
+        this.props.playTrack(spotifyApi,uri);
+    }
     render(){
         return(
             <div className="app">
@@ -35,7 +39,7 @@ class Search extends Component{
                 <div>
                     <SearchBar searchPress={this.handleSearch}/>
                     <h2>Results for: {input}</h2>
-                    <SearchContainer results={this.props.results}/>
+                    <SearchContainer handlePlay={this.handlePlay} results={this.props.results}/>
                 </div> : <SearchBar searchPress={this.handleSearch}/>
             }
             </div>
@@ -49,7 +53,8 @@ const mapStateToProps = (state) =>{
   };
   const mapDispatchToProps = {
       search,
-      unmountSearch
+      unmountSearch,
+      playTrack
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Search);
   

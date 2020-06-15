@@ -21,7 +21,7 @@ h1,h2,h3,h4,h5,p, Button{
   width:100%;
 }
 .search-div{
-  margin-top:2%;
+  margin-top:1%;
 }
 /* Card styles */
 
@@ -102,4 +102,14 @@ h1,h2,h3,h4,h5,p, Button{
 
 .details{
   font-family: 'Raleway', sans-serif;
+}
+
+/* Player */
+
+.player{
+  background-color: white;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
 }

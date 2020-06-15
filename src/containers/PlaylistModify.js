@@ -1,10 +1,10 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks,deletePlaylist,unmountUserPlaylist,unmountSearch,updatePlaylistDetails} from "../actions/index.js";
+import {search,addTrackToPlaylist,removeTrackFromPlaylist,fetchUserPlaylists,fetchPlaylistTracks,deletePlaylist,unmountUserPlaylist,unmountSearch,updatePlaylistDetails,playTrack} from "../actions/index.js";
 import {connect} from "react-redux";
 import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplate";
-import {Container,Row,Col,Button,Figure,Dropdown,Image} from "react-bootstrap";
+import {Container,Row,Col,Button,Dropdown,Image} from "react-bootstrap";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import SearchBar from "../components/SearchComponents/SearchBar";
 import {LinkContainer} from "react-router-bootstrap";
@@ -22,6 +22,7 @@ class PlaylistModify extends Component{
         super(props);
         this.state={
             areYouSure:false,
+            clicked:false,
             leave:"/playlistMaker/modify",
             playlistTitle:"",
             playlistDescription:"",
@@ -38,10 +39,12 @@ class PlaylistModify extends Component{
         this.handleRemovePlaylist = this.handleRemovePlaylist.bind(this);
         this.handleMerge = this.handleMerge.bind(this);
         this.handleDetailUpdate = this.handleDetailUpdate.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
     }
     componentDidMount(){
         this.props.fetchUserPlaylists(spotifyApi,this.props.user.id)
     }
+    // Unmounting
     componentWillUnmount(){
         this.props.unmountUserPlaylist();
         this.props.unmountSearch();
@@ -51,6 +54,7 @@ class PlaylistModify extends Component{
         this.props.fetchPlaylistTracks(spotifyApi,id);
         playlistId = id;
         this.setState({
+            clicked:true,
             playlistTitle:title,
             playlistDescription:description,
             playlistOwner:owner,
@@ -134,9 +138,13 @@ class PlaylistModify extends Component{
             playlistDescription:description
         })
     }
+    handlePlay(uri){
+        this.props.playTrack(spotifyApi,uri);
+    }
     render(){
         return(
             <div className="app">
+                <h2 style={{margin:"1%"}}>{this.state.clicked ? "Modify Playlist":"Select a playlist to modify"}</h2>
                 {this.props.tracks ?
                 <div>
                 <Container fluid>
@@ -148,7 +156,7 @@ class PlaylistModify extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists}/>
+                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} handlePlay={this.handlePlay}/>
                         )}
                         </div>:<div></div>
                         }
@@ -229,6 +237,7 @@ const mapDispatchToProps = {
     deletePlaylist,
     unmountUserPlaylist,
     unmountSearch,
-    updatePlaylistDetails
+    updatePlaylistDetails,
+    playTrack
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistModify);

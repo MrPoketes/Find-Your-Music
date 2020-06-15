@@ -1,15 +1,14 @@
 import React,{Component} from "react";
 import "../css/style.css";
 import * as SpotifyWebApi from "spotify-web-api-js";
-import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist,unmountCreated,unmountSearch,updatePlaylistDetails} from "../actions/index.js";
+import {createNewPlaylist,search,addTrackToPlaylist,removeTrackFromPlaylist,unmountCreated,unmountSearch,updatePlaylistDetails,playTrack} from "../actions/index.js";
 import {connect} from "react-redux";
-import {Container,Row,Col} from "react-bootstrap";
+import {Container,Row,Col,Button} from "react-bootstrap";
 import SearchBar from "../components/SearchComponents/SearchBar";
 import SearchItemTemplate from "../components/SearchComponents/SearchItemTemplate";
 import PlaylistForm from "../components/Playlists/PlaylistForm";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import { LinkContainer } from "react-router-bootstrap";
-import {Button} from "react-bootstrap";
 import PlaylistDetails from "../components/Playlists/PlaylistDetails";
 // Global variables
 var spotifyApi = new SpotifyWebApi();
@@ -28,6 +27,7 @@ class PlaylistCreate extends Component{
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleDetailUpdate = this.handleDetailUpdate.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
     }
     componentWillUnmount(){
         songs={};
@@ -110,9 +110,13 @@ class PlaylistCreate extends Component{
         });
         this.props.updatePlaylistDetails(spotifyApi,data,this.props.playlist.id);
     }
+    handlePlay(uri){
+        this.props.playTrack(spotifyApi,uri);
+    }
     render(){
         return(
             <div className="app">
+                <h2 style={{margin:"1%"}}>Create a new playlist</h2>
                 {this.props.playlist ?
                 <Container fluid>
                     <Row>
@@ -123,7 +127,7 @@ class PlaylistCreate extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} fullArtists={track.fullArtists} fullTitle={track.fullTitle}/>
+                                <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} fullArtists={track.fullArtists} fullTitle={track.fullTitle} handlePlay={this.handlePlay}/>
                         )}
                         </div>:<div></div>
                         }
@@ -170,6 +174,7 @@ const mapDispatchToProps = {
     removeTrackFromPlaylist,
     unmountCreated,
     unmountSearch,
-    updatePlaylistDetails
+    updatePlaylistDetails,
+    playTrack,
 }
 export default connect(mapStateToProps,mapDispatchToProps)(PlaylistCreate);

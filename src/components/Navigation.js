@@ -1,12 +1,13 @@
 import React,{Component} from "react";
 import {Navbar,Nav,NavDropdown} from "react-bootstrap";
 import {BrowserRouter as Router,Switch,Route,NavLink} from "react-router-dom";
-import App from "../index.js";
+import App from "../containers/App";
 import Search from "../containers/Search";
 import PlaylistCreate from "../containers/PlaylistCreate";
 import { LinkContainer } from "react-router-bootstrap";
 import PlaylistModify from "../containers/PlaylistModify.js";
 import "../css/style.css";
+
 var accessToken="";
 export default class Navigation extends Component{
   constructor(props){
@@ -33,7 +34,7 @@ export default class Navigation extends Component{
           </Navbar>
           <Switch>
             <Route exact path="/">
-              <App/>
+              <App accessToken={this.props.access}/>
             </Route>
             <Route exact path="/playlistMaker/create">
               <PlaylistCreate accessToken={accessToken}/>

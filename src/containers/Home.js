@@ -4,14 +4,12 @@ import {Button} from "react-bootstrap";
 import * as SpotifyWebApi from "spotify-web-api-js";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchTopTracks,fetchNewAlbums} from "../actions/index.js";
+import {fetchTopTracks,fetchNewAlbums,playTrack} from "../actions/index.js";
 import SignInButton from "../components/SignInButton";
 import MusicCards from "../components/Cards/MusicCards";
 
 // Global variables
 var spotifyApi = new SpotifyWebApi();
-// let accessToken="";
-
 class Home extends Component {
   constructor(props){
     super(props);
@@ -19,11 +17,12 @@ class Home extends Component {
       isShowAlbumsClicked:false,
       isShowNewClicked:false
     };
+    
     // Handle Functions
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleShowAlbumsClick = this.handleShowAlbumsClick.bind(this);
     this.handleNewReleasesClick = this.handleNewReleasesClick.bind(this);
-
+    this.handlePlay = this.handlePlay.bind(this);
     spotifyApi.setAccessToken(this.props.access);
   }
   componentDidMount(){
@@ -69,6 +68,9 @@ class Home extends Component {
       })
     }
   }
+  handlePlay(uri){
+     this.props.playTrack(spotifyApi,uri);
+  }
   render(){
       return (
         <div className="app">
@@ -86,12 +88,12 @@ class Home extends Component {
             {/* Handling clicking the buttons */}
             {this.state.isShowAlbumsClicked?
               <div>
-                <MusicCards top={this.props.topTracks}/>
+                <MusicCards handlePlay={this.handlePlay} top={this.props.topTracks}/>
               </div>: <div></div>
             }
             {this.state.isShowNewClicked? 
             <div>
-                <MusicCards top={this.props.newAlbums}/>
+                <MusicCards handlePlay={this.handlePlay} top={this.props.newAlbums}/>
             </div>:<div></div>
           }
           {/* Authentication part */}
@@ -115,11 +117,12 @@ const mapStateToProps = (state) =>{
     userData: state.userData.data,
     topTracks: state.topTracks.tracks,
     newAlbums: state.newReleases.albums,
-    playlists:state.userPlaylist.playlists
+    playlists:state.userPlaylist.playlists,
   };
 };
 const mapDispatchToProps = {
     fetchTopTracks,
     fetchNewAlbums,
+    playTrack
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

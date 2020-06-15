@@ -15,6 +15,7 @@ const topTracksReducer = (state=initialState,action)=>{
                 let newObj = {};
                 newObj = Object.assign({},newObj,{
                     artists:itemArtists,
+                    uri:itemObj.uri,
                     url: itemObj.external_urls.spotify,
                     images:itemObj.album.images[0].url,
                     title:itemObj.name,

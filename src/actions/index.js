@@ -164,6 +164,47 @@ export const updatePlaylistDetails = (spotify,data,playlistId) => (dispatch) =>{
         }
     })
 }
+// Player
+export const getPlayback = (spotify) => (dispatch) =>{
+    spotify.getMyCurrentPlaybackState(function(err,playback){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"GET_PLAYBACK",
+                payload:playback
+            })
+        }
+    })
+}
+export const playTrack = (spotify,uri) => (dispatch) =>{
+    if(uri.includes("track")){
+        spotify.play({uris:[uri]},function(err,play){
+            if(err){
+                console.log(err);
+            }
+            else{
+                dispatch({
+                    type:"PLAY",
+                })
+            }
+        })
+    }
+    else{
+        spotify.play({context_uri:uri},function(err,play){
+            if(err){
+                console.log(err);
+            }
+            else{
+                dispatch({
+                    type:"PLAY",
+                })
+            }
+        })
+    }
+}
+
 // Unmounting
 
 export const unmountSearch = () => (dispatch) =>{

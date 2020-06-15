@@ -15,6 +15,7 @@ const newAlbumsReducer = (state=initialState,action)=>{
                 }
                 var newObj = Object.assign({},newObj,{
                     artist:itemArtists,
+                    uri:itemObj.uri,
                     url:itemObj.external_urls.spotify,
                     images:itemObj.images[0].url,
                     title:itemObj.name,

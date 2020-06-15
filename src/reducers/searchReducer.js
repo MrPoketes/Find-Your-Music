@@ -22,7 +22,8 @@ function assigning(items,type){
         newObj = Object.assign({},newObj,{
             name:itemObj.name,
             url:itemObj.external_urls.spotify,
-            images:checkImage
+            images:checkImage,
+            uri:itemObj.uri
         })
         newItems.push(newObj)
     }
@@ -63,7 +64,8 @@ function assigning(items,type){
                     url:itemObj.external_urls.spotify,
                     images:checkImage,
                     name:title,
-                    release_date:itemObj.release_date
+                    release_date:itemObj.release_date,
+                    uri:itemObj.uri
                 })
             }
             else if(type==="playlists"){
@@ -79,6 +81,7 @@ function assigning(items,type){
                     title+="...";
                 }
                 newObj = Object.assign({},newObj,{
+                    uri:itemObj.uri,
                     description:itemObj.description,
                     images:checkImage,
                     title:title,

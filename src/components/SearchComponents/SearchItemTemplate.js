@@ -1,11 +1,12 @@
 import React,{Component} from "react";
-import {Figure} from "react-bootstrap";
+import {Figure,Button} from "react-bootstrap";
 import "../../css/style.css";
 
 class SearchItemTemplate extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleListen = this.handleListen.bind(this);
     }
     handleClick(){
         if(this.props.handleAdd!==undefined){
@@ -16,20 +17,29 @@ class SearchItemTemplate extends Component{
                 this.props.handleAdd(this.props.image,this.props.title,this.props.name,this.props.uri,this.props.id,this.props.description);
             }
         }
+        if(this.props.handleSearchClick!==undefined){
+            this.props.handleSearchClick(this.props.uri);
+        }
+    }
+    handleListen(){
+        this.props.handlePlay(this.props.uri);
     }
     render(){
         return(
-            <Figure onClick={this.handleClick} style={{width:this.props.size,height:this.props.size,margin:"1%",marginBottom:"3%"}}>
-                <a href={this.props.url}>
-                <Figure.Image rounded={true} roundedCircle={this.props.circle} className="card"
+            <Figure style={{width:this.props.size,height:this.props.size,margin:"1%",marginBottom:"3%"}}>
+                {/* <a href={this.props.url}> */}
+                <Figure.Image onClick={this.handleClick} rounded={true} roundedCircle={this.props.circle} className="card"
                 width={302}
                 height={302}
                 src={this.props.image}
                 alt="None"/>
-                </a>
+                {/* </a> */}
                 <Figure.Caption>
                     <h3 style={{margin:"0",fontSize:this.props.font,color:"white"}}>{this.props.title}</h3>
                     <p style={{fontSize:"10px",color:"white"}}>{this.props.name}</p>
+                    {this.props.handlePlay ?
+                        <Button style={{padding:"1%"}} variant="success" onClick={this.handleListen}>Listen</Button>:<div></div>
+                }
                 </Figure.Caption>
             </Figure>
         )       
