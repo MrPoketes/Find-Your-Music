@@ -13,7 +13,8 @@
 <li> - [ ] Let the user upload a custom image to their playlists</li>
 <li> - [ ] Style the website better</li>
 <li> - [ ] Add animations</li>
-<li> - [ ] Perhaps add a player so the user can listen to the music they selected on the website (or atleast the preview)</li>
+<li> - [x] Add a player so the user can listen to the music they selected on the website (Works only for premium users)</li>
+<li> - [ ] Style the player, check if the user has spotify premium or not. If the user has premium he will be able to listen to music, otherwise clicking any song will redirect the user to the spotify website</li>
 
 </ul>
 <h2>Authorization Screen</h2>
