@@ -15,7 +15,8 @@ class Home extends Component {
     super(props);
     this.state = {
       isShowAlbumsClicked:false,
-      isShowNewClicked:false
+      isShowNewClicked:false,
+      premium:false
     };
     
     // Handle Functions
@@ -30,6 +31,11 @@ class Home extends Component {
       accessToken:this.props.access
     })
     //Setting the access token to the spotifyApi so I could then pass it to the actions to fetch data
+    if(this.props.userData.product==="premium"){
+      this.setState({
+        premium:true
+      })
+    }
     this.props.fetchTopTracks(spotifyApi);
     this.props.fetchNewAlbums(spotifyApi);
   }
@@ -88,12 +94,12 @@ class Home extends Component {
             {/* Handling clicking the buttons */}
             {this.state.isShowAlbumsClicked?
               <div>
-                <MusicCards handlePlay={this.handlePlay} top={this.props.topTracks}/>
+                <MusicCards handlePlay={this.handlePlay} top={this.props.topTracks} premium={this.state.premium}/>
               </div>: <div></div>
             }
             {this.state.isShowNewClicked? 
             <div>
-                <MusicCards handlePlay={this.handlePlay} top={this.props.newAlbums}/>
+                <MusicCards handlePlay={this.handlePlay} top={this.props.newAlbums} premium={this.state.premium}/>
             </div>:<div></div>
           }
           {/* Authentication part */}

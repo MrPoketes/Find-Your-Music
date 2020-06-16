@@ -19,6 +19,9 @@ let newItems = [];
 class PlaylistCreate extends Component{
     constructor(props){
         super(props);
+        this.state={
+            premium:false,
+        }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
         // Handler functions
@@ -28,6 +31,13 @@ class PlaylistCreate extends Component{
         this.handleRemove = this.handleRemove.bind(this);
         this.handleDetailUpdate = this.handleDetailUpdate.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
+    }
+    componentDidMount(){
+        if(this.props.user.product==="premium"){
+            this.setState({
+              premium:true
+            })
+          }
     }
     componentWillUnmount(){
         songs={};
@@ -127,7 +137,7 @@ class PlaylistCreate extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                                <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} fullArtists={track.fullArtists} fullTitle={track.fullTitle} handlePlay={this.handlePlay}/>
+                                <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAdd} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} fullArtists={track.fullArtists} fullTitle={track.fullTitle} handlePlay={this.handlePlay} premium={this.state.premium}/>
                         )}
                         </div>:<div></div>
                         }

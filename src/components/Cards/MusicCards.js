@@ -12,7 +12,7 @@ export default class MusicCard extends Component{
         return(
             <div className="musicCard">
                 {this.props.top.items.map((item,i)=>
-                <CardTemplate key={i} handleClick={this.handleClick} uri={item.uri} image={item.images} url={item.url}/>
+                <CardTemplate key={i} handleClick={this.handleClick} uri={item.uri} image={item.images} url={item.url} premium={this.props.premium}/>
                 )}
             </div>
         )

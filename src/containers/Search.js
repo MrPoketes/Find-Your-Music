@@ -13,12 +13,20 @@ class Search extends Component{
     constructor(props){
         super(props);
         this.state={
-            accessToken:this.props.accessToken
+            accessToken:this.props.accessToken,
+            premium:false,
         }
         accessToken = this.props.accessToken;
         this.handleSearch = this.handleSearch.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
         spotifyApi.setAccessToken(accessToken);
+    }
+    componentDidMount(){
+        if(this.props.userData.product==="premium"){
+            this.setState({
+              premium:true
+            })
+          }
     }
     componentWillUnmount(){
         this.props.unmountSearch();
@@ -39,7 +47,7 @@ class Search extends Component{
                 <div>
                     <SearchBar searchPress={this.handleSearch}/>
                     <h2>Results for: {input}</h2>
-                    <SearchContainer handlePlay={this.handlePlay} results={this.props.results}/>
+                    <SearchContainer premium={this.state.premium} handlePlay={this.handlePlay} results={this.props.results}/>
                 </div> : <SearchBar searchPress={this.handleSearch}/>
             }
             </div>
@@ -48,7 +56,8 @@ class Search extends Component{
 }
 const mapStateToProps = (state) =>{
     return{
-      results: state.searchResults.data
+        userData: state.userData.data,
+        results: state.searchResults.data
     };
   };
   const mapDispatchToProps = {

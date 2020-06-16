@@ -28,6 +28,7 @@ class PlaylistModify extends Component{
             playlistDescription:"",
             playlistOwner:"",
             playlistImage:"",
+            premium:false,
         }
         accessToken = this.props.accessToken;
         spotifyApi.setAccessToken(accessToken);
@@ -42,6 +43,11 @@ class PlaylistModify extends Component{
         this.handlePlay = this.handlePlay.bind(this);
     }
     componentDidMount(){
+        if(this.props.user.product==="premium"){
+            this.setState({
+              premium:true
+            })
+          }
         this.props.fetchUserPlaylists(spotifyApi,this.props.user.id)
     }
     // Unmounting
@@ -156,7 +162,7 @@ class PlaylistModify extends Component{
                         <div>
                             <h2>Click to add a track to your playlist</h2>
                            {this.props.results.tracks.map((track,i)=>
-                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} handlePlay={this.handlePlay}/>
+                            <SearchItemTemplate key={i} circle={false} handleAdd={this.handleAddTrack} id={id} uri={track.uri} font="15px" size="10rem" image={track.images} name={track.title} title={track.artists} handlePlay={this.handlePlay} premium={this.state.premium}/>
                         )}
                         </div>:<div></div>
                         }
