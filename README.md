@@ -1,8 +1,7 @@
 <h1>Find Your Music</h1>
 
 <h2>About</h2>
-<p>Find Your Music is a website where you can quickly find your desired music by quickly searching for it. You can also discover what your top viewed songs on spotify are and even browse through new releases songs</p>
-
+<p>Find Your Music is a website that gives the users the ability to find out their most listened tracks, new releases, search for music, create and even modify playlists. The modify playlist section also has a nice feature where you can merge playlists (it will put the selected playlist songs into the current playlist that is being modified). If the user has Spotify premium, he can also listen to music through the website</p>
 
 <a href="https://find-your-music.herokuapp.com"><h2>Demo</h2></a>
 
@@ -19,17 +18,17 @@
 
 </ul>
 <h2>Authorization Screen</h2>
-<img src="https://i.imgur.com/Iy8UszS.png"/>
+<img src="https://i.imgur.com/S9BbfbT.png"/>
 <h2>Main Menu</h2>
-<img src="https://i.imgur.com/SUMjxRc.png"/>
-<img src="https://i.imgur.com/Y4CBHrb.png"/>
-<img src="https://i.imgur.com/AZfBUtg.png"/>
+<img src="https://i.imgur.com/aAtvNZC.png"/>
+<img src="https://i.imgur.com/pSZ3ffR.png"/>
+<img src="https://i.imgur.com/NPwyPDb.png"/>
 <h2>Search Tab</h2>
-<img src="https://i.imgur.com/Ar7SA3u.png"/>
-<img src="https://i.imgur.com/IEfm2WW.png"/>
+<img src="https://i.imgur.com/tGp3yaL.png"/>
+<img src="https://i.imgur.com/S8DmgV1.png"/>
 <h2>Create Playlist Section</h2>
-<img src="https://i.imgur.com/vGNJoi4.png"/>
-<img src="https://i.imgur.com/lia77ir.png"/>
+<img src="https://i.imgur.com/qFU8Nbi.png"/>
+<img src="https://i.imgur.com/Lh9f3xZ.png"/>
 <h2>Modify Playlist Section</h2>
-<img src="https://i.imgur.com/LKIroiv.png"/>
-<img src="https://i.imgur.com/YSCBMs8.png"/>
+<img src="https://i.imgur.com/alpM1vs.png"/>
+<img src="https://i.imgur.com/cUZfL98.png"/>
