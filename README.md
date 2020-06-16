@@ -1,7 +1,7 @@
 <h1>Find Your Music</h1>
 
 <h2>About</h2>
-<p>Find Your Music is a website that gives the users the ability to find out their most listened tracks, new releases, search for music, create and even modify playlists. The modify playlist section also has a nice feature where you can merge playlists (it will put the selected playlist songs into the current playlist that is being modified). If the user has Spotify premium, he can also listen to music through the website</p>
+<p>Find Your Music is a website that gives the users the ability to find out their most listened tracks, new releases, search for music, create and even modify playlists. The modify playlist section also has a nice feature where you can merge playlists (it will put the selected playlist songs into the current playlist that is being modified). If the user has Spotify premium, he can also listen to music through the website. All the features are done with the help of Spotify Web Api</p>
 
 <a href="https://find-your-music.herokuapp.com"><h2>Demo</h2></a>
 
