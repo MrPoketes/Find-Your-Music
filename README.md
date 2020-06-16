@@ -11,7 +11,7 @@
 <li> - [x] Add the the ability to make your own spotify playlist using the website</li>
 <li> - [x] Let the user modify the name and description of a playlist</li>
 <li> - [ ] Let the user upload a custom image to their playlists</li>
-<li> - [ ] Style the website better</li>
+<li> - [x] Style the website better</li>
 <li> - [ ] Add animations</li>
 <li> - [x] Add a player so the user can listen to the music they selected on the website (Works only for premium users)</li>
 <li> - [x] Style the player</li> 

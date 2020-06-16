@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import "../../css/style.css";
 import {Card} from "react-bootstrap";
 
-class CardTemplate extends Component{
+export default class CardTemplate extends Component{
     constructor(props){
         super(props);
         this.handleCardClick = this.handleCardClick.bind(this);
@@ -32,10 +32,8 @@ class CardTemplate extends Component{
                             </Card.ImgOverlay>
                         </a>
                     </Card>
-            
-            }
+                }
             </div>
-            )
+        )
     }
 }
-export default CardTemplate;

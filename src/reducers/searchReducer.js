@@ -2,7 +2,6 @@ var image = require('../images/missingImage.PNG')
 const initialState={
     data:null
 }
-
 function assigning(items,type){
     let newItems = [];
     if(items.length===0){
@@ -119,7 +118,6 @@ function assigning(items,type){
     }
     return newItems
 }
-
 const searchReducer = (state=initialState,action) =>{
     switch(action.type){
         case "SEARCH":

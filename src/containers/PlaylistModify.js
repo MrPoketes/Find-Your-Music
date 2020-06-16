@@ -66,7 +66,6 @@ class PlaylistModify extends Component{
             playlistOwner:owner,
             playlistImage:image,
         })
-        // playlistTitle=title;
     }
     // Handling user searched tracks by fetching searched tracks
     handleSearch(input){
@@ -144,6 +143,7 @@ class PlaylistModify extends Component{
             playlistDescription:description
         })
     }
+    // Handle function for playing the selected song
     handlePlay(uri){
         this.props.playTrack(spotifyApi,uri);
     }

@@ -10,6 +10,7 @@ import MusicCards from "../components/Cards/MusicCards";
 
 // Global variables
 var spotifyApi = new SpotifyWebApi();
+
 class Home extends Component {
   constructor(props){
     super(props);
@@ -30,7 +31,6 @@ class Home extends Component {
     this.setState({
       accessToken:this.props.access
     })
-    //Setting the access token to the spotifyApi so I could then pass it to the actions to fetch data
     if(this.props.userData.product==="premium"){
       this.setState({
         premium:true
@@ -74,6 +74,7 @@ class Home extends Component {
       })
     }
   }
+  // Handle function for playing the selected song
   handlePlay(uri){
      this.props.playTrack(spotifyApi,uri);
   }
@@ -89,7 +90,7 @@ class Home extends Component {
               Welcome {this.props.userData.display_name} to Find Your Music
             </h1>
             {/* Buttons for Top Tracks and New Releases */}
-            <Button style={{margin:"1%",fontFamily:'Raleway'}} variant="success" size="lg" onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
+            <Button style={{margin:"1%",fontFamily:'Raleway'}} variant="success" size="lg"  onClick={this.handleShowAlbumsClick}>{this.state.isShowAlbumsClicked? "Hide Your Top Tracks":"Show Your Top Tracks"}</Button>
             <Button style={{margin:"1%",fontFamily:'Raleway'}} variant="success" size="lg" onClick={this.handleNewReleasesClick}>{this.state.isShowNewClicked? "Hide New Releases":"Show New Releases"}</Button>
             {/* Handling clicking the buttons */}
             {this.state.isShowAlbumsClicked?

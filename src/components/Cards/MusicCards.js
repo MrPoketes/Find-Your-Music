@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import CardTemplate from "./CardTemplate";
+
 export default class MusicCard extends Component{
     constructor(props){
         super(props);

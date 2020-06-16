@@ -6,9 +6,12 @@ import {connect} from "react-redux";
 import {search,unmountSearch,playTrack} from "../actions/index.js";
 import * as SpotifyWebApi from "spotify-web-api-js";
 
+// Global variables
+
 var spotifyApi = new SpotifyWebApi();
 let input="";
 var accessToken = "";
+
 class Search extends Component{
     constructor(props){
         super(props);
@@ -17,9 +20,10 @@ class Search extends Component{
             premium:false,
         }
         accessToken = this.props.accessToken;
+        spotifyApi.setAccessToken(accessToken);
+        // Handle function
         this.handleSearch = this.handleSearch.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
-        spotifyApi.setAccessToken(accessToken);
     }
     componentDidMount(){
         if(this.props.userData.product==="premium"){
@@ -37,6 +41,7 @@ class Search extends Component{
           this.props.search(spotifyApi,input,4);
         }
     }
+    // Handle function for playing the selected song
     handlePlay(uri){
         this.props.playTrack(spotifyApi,uri);
     }

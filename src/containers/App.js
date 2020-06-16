@@ -10,6 +10,7 @@ import * as SpotifyWebApi from "spotify-web-api-js";
 var spotifyApi = new SpotifyWebApi();
 let accessToken="";
 let isAccessToken = false;
+
 class App extends Component {
     constructor(props){
       super(props);

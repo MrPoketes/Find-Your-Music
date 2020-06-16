@@ -1,7 +1,9 @@
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 h1,h2,h3,h4,h5,p, Button{
   font-family: 'Raleway', sans-serif;
 }
+/* Main */
 .app {
   text-align: center;
   color:white;
@@ -99,13 +101,10 @@ h1,h2,h3,h4,h5,p, Button{
   width:150px;
   height:150px;
 }
-
 .details{
   font-family: 'Raleway', sans-serif;
 }
-
 /* Player */
-
 .player{
   background-color: white;
   position:fixed;

@@ -96,7 +96,6 @@ export const removeTrackFromPlaylist = (spotify,playlistId,uri) => (dispatch) =>
             }
         })
     }
-
 export const fetchUserPlaylists = (spotify,userId) => (dispatch) =>{
     spotify.getUserPlaylists(userId,{limit:50},function(err,playlists){
         if(err){
@@ -110,8 +109,6 @@ export const fetchUserPlaylists = (spotify,userId) => (dispatch) =>{
         }
     })
 }
-
-
 export const fetchPlaylistTracks = (spotify,playlistId) => (dispatch) =>{
     spotify.getPlaylistTracks(playlistId,function(err,tracks){
         if(err){
@@ -165,19 +162,6 @@ export const updatePlaylistDetails = (spotify,data,playlistId) => (dispatch) =>{
     })
 }
 // Player
-export const getPlayback = (spotify) => (dispatch) =>{
-    spotify.getMyCurrentPlaybackState(function(err,playback){
-        if(err){
-            console.log(err);
-        }
-        else{
-            dispatch({
-                type:"GET_PLAYBACK",
-                payload:playback
-            })
-        }
-    })
-}
 export const playTrack = (spotify,uri) => (dispatch) =>{
     if(uri.includes("track")){
         spotify.play({uris:[uri]},function(err,play){

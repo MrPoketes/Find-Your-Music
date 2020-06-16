@@ -3,7 +3,7 @@ import "../../css/style.css";
 import SearchItemTemplate from "./SearchItemTemplate";
 import {Container,Row,Col} from "react-bootstrap";
 
-class SearchContainer extends Component{
+export default class SearchContainer extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -15,10 +15,12 @@ class SearchContainer extends Component{
         return(
             <Container fluid className="searchContainer">
                 <Row>
+                    {/* Artist col */}
                     <Col className="artists">
                         <h2>Top Artist</h2>
                         <SearchItemTemplate size="8rem" circle={true} image={this.props.results.artists[0].images} name={""} title={this.props.results.artists[0].name} url={this.props.results.artists[0].url} uri={this.props.results.artists[0].uri} font="20px" handleSearchClick={this.handleClick} premium={this.props.premium}/>
                     </Col>
+                    {/* Track col */}
                     <Col className="tracks">
                         <h2>Songs</h2>
                         {this.props.results.tracks.map((track,i)=>
@@ -27,12 +29,14 @@ class SearchContainer extends Component{
                     </Col>
                 </Row>
                 <Row>
+                    {/* Album col */}
                     <Col className="albums">
                         <h2>Albums</h2>
                         {this.props.results.albums.map((album,i)=>
                         <SearchItemTemplate key={i} size="8rem" circle={false} image={album.images} name={album.name} title={album.artists} url={album.url} uri={album.uri} handleSearchClick={this.handleClick} font="15px" premium={this.props.premium}/>
                         )}
                     </Col>
+                    {/* Playlist col */}
                     <Col className="playlists">
                         <h2>Playlists</h2>
                         {this.props.results.playlists.map((playlist,i)=>
@@ -44,4 +48,3 @@ class SearchContainer extends Component{
         )    
     }
 }
-export default SearchContainer

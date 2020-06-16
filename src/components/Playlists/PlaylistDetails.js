@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import ReactDOM from "react-dom";
 import {InputGroup,Button,FormControl} from "react-bootstrap";
 import "../../css/style.css";
+
 export default class PlaylistDetails extends Component{
     constructor(props){
         super(props);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import {InputGroup,FormControl,Button} from "react-bootstrap";
+
 export default class SearchBar extends Component{
     constructor(props){
         super(props);

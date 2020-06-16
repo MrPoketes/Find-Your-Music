@@ -10,12 +10,14 @@ import PlaylistForm from "../components/Playlists/PlaylistForm";
 import PlaylistTrackTemplate from "../components/Playlists/PlaylistTrackTemplate";
 import { LinkContainer } from "react-router-bootstrap";
 import PlaylistDetails from "../components/Playlists/PlaylistDetails";
+
 // Global variables
 var spotifyApi = new SpotifyWebApi();
 let input = "";
 var accessToken = "";
 let songs = {};
 let newItems = [];
+
 class PlaylistCreate extends Component{
     constructor(props){
         super(props);
@@ -120,6 +122,7 @@ class PlaylistCreate extends Component{
         });
         this.props.updatePlaylistDetails(spotifyApi,data,this.props.playlist.id);
     }
+    // Handle function for playing the selected song
     handlePlay(uri){
         this.props.playTrack(spotifyApi,uri);
     }

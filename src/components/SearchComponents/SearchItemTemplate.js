@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import {Figure,Button} from "react-bootstrap";
 import "../../css/style.css";
 
-class SearchItemTemplate extends Component{
+export default class SearchItemTemplate extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -60,4 +60,3 @@ class SearchItemTemplate extends Component{
         )       
     }
 }
-export default SearchItemTemplate;

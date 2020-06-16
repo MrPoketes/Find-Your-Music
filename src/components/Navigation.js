@@ -8,7 +8,9 @@ import { LinkContainer } from "react-router-bootstrap";
 import PlaylistModify from "../containers/PlaylistModify.js";
 import "../css/style.css";
 
+// Global variables
 var accessToken="";
+
 export default class Navigation extends Component{
   constructor(props){
     super(props);
