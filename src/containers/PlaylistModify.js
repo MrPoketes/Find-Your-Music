@@ -199,7 +199,7 @@ class PlaylistModify extends Component{
                                 {this.props.tracks.items.map((item,i)=>
                                     <PlaylistTrackTemplate key={i} pos={i} remove={this.handleRemoveTrack} link={item.uri} image={item.images} title={item.title} name={item.artists}/>
                                 )}
-                                <LinkContainer style={{fontFamily:'Raleway',marginTop:"1%",marginBottom:"1%"}} exact to="/">
+                                <LinkContainer style={{fontFamily:'Raleway',marginTop:"1%",marginBottom:"10%"}} exact to="/">
                                     <Button variant="success" size="lg">Save</Button>
                                 </LinkContainer>
                             </div>:<div></div>
