@@ -7,6 +7,7 @@ import createPlaylistReducer from "./createPlaylistReducer";
 import modifyTracksReducer from "./modifyTracksReducer";
 import userPlaylistsReducer from "./userPlaylistsReducer";
 import playerReducer from "./playerReducer";
+import lyricsReducer from "./lyricsReducer";
 
 export default combineReducers({
     userData:userDataReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     created:createPlaylistReducer,
     modifiedTracks:modifyTracksReducer,
     userPlaylist:userPlaylistsReducer,
-    player:playerReducer
+    player:playerReducer,
+    lyrics:lyricsReducer
 });

@@ -189,6 +189,29 @@ export const playTrack = (spotify,uri) => (dispatch) =>{
     }
 }
 
+export const currentPlayingTrack = (spotify) => (dispatch)=>{
+    spotify.getMyCurrentPlayingTrack(function(err,track){
+        if(err){
+            console.log(err);
+        }
+        else{
+            dispatch({
+                type:"GET_CURRENT_PLAYING_TRACK",
+                payload:track
+            })
+        }
+    })
+}
+
+export const getLyrics = (artist,title) => (dispatch) =>{
+    fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
+    .then(res=>res.json())
+    .then(lyrics=>
+        dispatch({
+            type:"GET_LYRICS",
+            payload:lyrics
+        }))
+}
 // Unmounting
 
 export const unmountSearch = () => (dispatch) =>{

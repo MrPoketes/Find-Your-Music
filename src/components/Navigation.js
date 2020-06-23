@@ -4,8 +4,9 @@ import {BrowserRouter as Router,Switch,Route,NavLink} from "react-router-dom";
 import App from "../containers/App";
 import Search from "../containers/Search";
 import PlaylistCreate from "../containers/PlaylistCreate";
-import { LinkContainer } from "react-router-bootstrap";
 import PlaylistModify from "../containers/PlaylistModify.js";
+import Lyrics from "../containers/Lyrics";
+import { LinkContainer } from "react-router-bootstrap";
 import "../css/style.css";
 
 // Global variables
@@ -32,6 +33,7 @@ export default class Navigation extends Component{
                   <NavDropdown.Item>Modify Playlist</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
+              <NavLink className="nav-link" exact to="/lyrics">Lyrics</NavLink>
             </Nav>
           </Navbar>
           <Switch>
@@ -46,6 +48,9 @@ export default class Navigation extends Component{
             </Route>
             <Route exact path="/playlistMaker/modify">
               <PlaylistModify accessToken={accessToken}/>
+            </Route>
+            <Route exact path="/lyrics">
+              <Lyrics accessToken={accessToken}/>
             </Route>
           </Switch>
           </Router>

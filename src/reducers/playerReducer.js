@@ -12,6 +12,17 @@ const playerReducer = (state=initialState,action) =>{
             return{
                 ...state,
             }
+        case "GET_CURRENT_PLAYING_TRACK":
+            let newObj = {};
+            newObj = Object.assign({},newObj,{
+                image:action.payload.item.album.images[0].url,
+                artist:action.payload.item.artists[0].name,
+                title:action.payload.item.name
+            })
+            return{
+                ...state,
+                track:newObj
+            }
         default:
             return state
     }
