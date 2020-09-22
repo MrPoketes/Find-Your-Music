@@ -5,7 +5,6 @@ import App from "../containers/App";
 import Search from "../containers/Search";
 import PlaylistCreate from "../containers/PlaylistCreate";
 import PlaylistModify from "../containers/PlaylistModify.js";
-import Lyrics from "../containers/Lyrics";
 import { LinkContainer } from "react-router-bootstrap";
 import "../css/style.css";
 
@@ -48,9 +47,6 @@ export default class Navigation extends Component{
             </Route>
             <Route exact path="/playlistMaker/modify">
               <PlaylistModify accessToken={accessToken}/>
-            </Route>
-            <Route exact path="/lyrics">
-              <Lyrics accessToken={accessToken}/>
             </Route>
           </Switch>
           </Router>

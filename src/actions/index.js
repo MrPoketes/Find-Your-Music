@@ -203,15 +203,6 @@ export const currentPlayingTrack = (spotify) => (dispatch)=>{
     })
 }
 
-export const getLyrics = (artist,title) => (dispatch) =>{
-    fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
-    .then(res=>res.json())
-    .then(lyrics=>
-        dispatch({
-            type:"GET_LYRICS",
-            payload:lyrics
-        }))
-}
 // Unmounting
 
 export const unmountSearch = () => (dispatch) =>{
