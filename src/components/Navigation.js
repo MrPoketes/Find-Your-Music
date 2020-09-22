@@ -32,7 +32,6 @@ export default class Navigation extends Component{
                   <NavDropdown.Item>Modify Playlist</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
-              <NavLink className="nav-link" exact to="/lyrics">Lyrics</NavLink>
             </Nav>
           </Navbar>
           <Switch>
